@@ -7,6 +7,6 @@ public class Layerd {
 
     public static void main(String[] args) {
         Session session = SessionFactoryConfiguration.getInstance().getSession();
-        System.out.println("helo status");
+
     }
 }
