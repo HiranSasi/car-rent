@@ -3,12 +3,16 @@ package lk.ijse.carrent.layerd.controller;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.carrent.layerd.dto.UserDto;
+import lk.ijse.carrent.layerd.service.ServiceFactory;
+import lk.ijse.carrent.layerd.service.custom.UserService;
 
 public class LoginFormController {
     @FXML
@@ -53,6 +57,8 @@ public class LoginFormController {
     @FXML
     private Button btnSignIns;
 
+    UserService userService = (UserService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.USER);
+
     public void initialize() {
 
         lblCreateAcount.setVisible(false);
@@ -67,7 +73,7 @@ public class LoginFormController {
 
     public void btnSingUpChangeOnAction(ActionEvent actionEvent) {
         TranslateTransition slide = new TranslateTransition();
-        slide.setDuration(Duration.seconds(0.7));
+        slide.setDuration(Duration.seconds(0.9));
         slide.setNode(AnchorPaneEmpty);
 
         slide.setToX(256);
@@ -111,5 +117,35 @@ public class LoginFormController {
         btnSignUps.setVisible(true);
         btnSignIns.setVisible(false);
 
+    }
+
+
+    @FXML
+    void btnSignUpOnAction(ActionEvent event) {
+
+       UserDto userDto = new UserDto(txtUSerId.getText(),
+               txtUserName.getText(),
+               txtName.getText(),
+               txtEmail.getText(),
+               txtPassword.getText());
+
+        try {
+            String result = userService.addUser(userDto);
+            new Alert(Alert.AlertType.INFORMATION,result).show();
+            clear();
+
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            clear();
+        }
+
+    }
+
+    private void clear(){
+        txtUSerId.setText("");
+        txtName.setText("");
+        txtEmail.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
     }
 }

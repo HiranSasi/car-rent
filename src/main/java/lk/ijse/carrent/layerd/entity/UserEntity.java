@@ -13,6 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 
+
+
+
 public class UserEntity {
     @Id
 
@@ -42,5 +45,14 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userEntity", targetEntity = CustomerEntity.class)
     private List<CustomerEntity> customerEntities;
+
+
+    public UserEntity(String id, String userName, String name, String email, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
 }

@@ -103,7 +103,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Button fx:id="btnSignUp" cache="true" layoutX="166.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" style="-fx-background-color: #34495e;" text="SIGN UP" textFill="#f8f8f8">
+            <Button fx:id="btnSignUp" cache="true" layoutX="166.0" layoutY="276.0" mnemonicParsing="false" onAction="#btnSignUpOnAction" prefHeight="25.0" prefWidth="98.0" style="-fx-background-color: #34495e;" text="SIGN UP" textFill="#f8f8f8">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
