@@ -1,17 +1,19 @@
 package lk.ijse.carrent.layerd.repository;
 
-import javafx.scene.control.Alert;
 import lk.ijse.carrent.layerd.util.SessionFactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 public class CrudUtil {
 
 
     Session session = SessionFactoryConfiguration.getInstance().getSession();
-    public  Integer add(Object object){
+    Transaction transaction = session.beginTransaction();
 
-        Transaction transaction =session.beginTransaction();
+    public Integer add(Object object) {
+
+
         Integer id;
 
         try {
@@ -19,11 +21,21 @@ public class CrudUtil {
             transaction.commit();
             return id = 10;
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
 
             transaction.rollback();
             return -1;
         }
+    }
+
+    public Object get(String hql){
+
+
+        Query query = session.createQuery(hql);
+         Object t =  query.uniqueResult();
+         return t;
+
+
     }
 }

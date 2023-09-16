@@ -3,12 +3,16 @@ package lk.ijse.carrent.layerd.controller;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.carrent.layerd.dto.UserDto;
 import lk.ijse.carrent.layerd.service.ServiceFactory;
@@ -56,6 +60,10 @@ public class LoginFormController {
 
     @FXML
     private Button btnSignIns;
+
+    @FXML
+    private AnchorPane loginMainAnchorPane;
+
 
     UserService userService = (UserService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.USER);
 
@@ -148,4 +156,41 @@ public class LoginFormController {
         txtUserName.setText("");
         txtPassword.setText("");
     }
+
+    @FXML
+    void btnSignInOnAction(ActionEvent event) {
+
+        UserDto dto = new UserDto();
+        dto.setUserName(txtUserName.getText());
+        dto.setPassword(txtPassword.getText());
+
+        try {
+            Boolean isCorrect = userService.searchPassword(dto);
+
+            if(isCorrect){
+
+                Parent root =FXMLLoader.load(getClass().getResource("/view/main_form.fxml"));
+                Scene scene = new Scene(root);
+
+                Stage stage = (Stage) this.loginMainAnchorPane.getScene().getWindow();
+                stage.setTitle("HS Car-Rent");
+                stage.setScene(scene);
+                stage.centerOnScreen();
+                stage.show();
+
+                clear();
+
+
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Wrong  Password").show();
+                clear();
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,"Wrong UserName").show();
+            clear();
+        }
+
+    }
 }
+
+

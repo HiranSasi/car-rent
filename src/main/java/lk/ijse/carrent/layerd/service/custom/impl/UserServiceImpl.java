@@ -28,4 +28,30 @@ public class UserServiceImpl implements UserService {
              return "Fail Added";
          }
     }
+
+    @Override
+    public Boolean searchPassword(UserDto userDto) throws Exception {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserName(userDto.getUserName());
+
+        Boolean isCorrect ;
+
+        userEntity = userRepo.get(userEntity.getUserName());
+
+        if(userRepo.get(userEntity.getUserName()) != null){
+
+
+            if (userDto.getPassword().equals(userEntity.getPassword())){
+                return true;
+            }else {
+                return false;
+            }
+
+        }else {
+
+            return false;
+        }
+
+
+    }
 }
