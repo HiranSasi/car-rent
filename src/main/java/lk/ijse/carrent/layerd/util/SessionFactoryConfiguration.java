@@ -1,9 +1,6 @@
 package lk.ijse.carrent.layerd.util;
 
-import lk.ijse.carrent.layerd.entity.CarCategoryEntity;
-import lk.ijse.carrent.layerd.entity.CarEntity;
-import lk.ijse.carrent.layerd.entity.CustomerEntity;
-import lk.ijse.carrent.layerd.entity.RentEntity;
+import lk.ijse.carrent.layerd.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -19,7 +16,8 @@ public class SessionFactoryConfiguration {
                 .addAnnotatedClass(CarCategoryEntity.class)
                 .addAnnotatedClass(CarEntity.class)
                 .addAnnotatedClass(CustomerEntity.class)
-                .addAnnotatedClass(RentEntity.class);
+                .addAnnotatedClass(RentEntity.class)
+                .addAnnotatedClass(UserEntity.class);
 
 
 

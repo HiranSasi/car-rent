@@ -17,7 +17,7 @@ public class CustomerEntity {
     @Id
     @Column(name = "id")
     private String id;
-    @Column(name = "nic", length = 15, nullable = false)
+    @Column(name = "nic", length = 15, nullable = false, unique = true)
     private Integer nic;
     @Column(name = "name", length = 55, nullable = false)
     private String name;
@@ -27,13 +27,18 @@ public class CustomerEntity {
     @CollectionTable(
             name = "customer_mobile",
 
-            joinColumns = @JoinColumn(name = "customer_id")
+            joinColumns = @JoinColumn(name = "customer_id", unique = true)
     )
     private List<String> mobil;
 
-    @OneToMany(mappedBy = "customerEntity",targetEntity = RentEntity.class)
+    @OneToMany(mappedBy = "customerEntity", targetEntity = RentEntity.class)
 
-    private List<RentEntity>rentEntities;
+    private List<RentEntity> rentEntities;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userEntity;
+
 
 
 }
