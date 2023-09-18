@@ -6,6 +6,8 @@ import lk.ijse.carrent.layerd.entity.UserEntity;
 import lk.ijse.carrent.layerd.repository.CrudUtil;
 import lk.ijse.carrent.layerd.repository.custom.UserRepo;
 
+import java.util.List;
+
 public class UserRepoImpl implements UserRepo {
 
 
@@ -23,5 +25,10 @@ public class UserRepoImpl implements UserRepo {
 
         return (UserEntity) new CrudUtil().get("FROM UserEntity WHERE userName = '"+ s +"'");
 
+    }
+
+    @Override
+    public List<UserEntity> getAll() throws Exception {
+        return null;
     }
 }

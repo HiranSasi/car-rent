@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.List;
+
 public class CrudUtil {
 
 
@@ -39,5 +41,12 @@ public class CrudUtil {
          return t;
 
 
+    }
+
+    public List<Object> getAll(String hql){
+
+        Query query = session.createQuery(hql);
+        List<Object> t = query.list();
+        return t;
     }
 }
