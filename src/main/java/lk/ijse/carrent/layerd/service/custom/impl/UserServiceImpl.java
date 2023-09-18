@@ -37,10 +37,11 @@ public class UserServiceImpl implements UserService {
         Boolean isCorrect ;
 
         userEntity = userRepo.get(userEntity.getUserName());
+        System.out.println("username="+userEntity.getUserName());
 
         if(userRepo.get(userEntity.getUserName()) != null){
 
-
+            System.out.println("username="+userEntity.getUserName());
             if (userDto.getPassword().equals(userEntity.getPassword())){
                 return true;
             }else {

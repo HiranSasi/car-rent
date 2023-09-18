@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.carrent.layerd.dto.CarCategoryDto;
 import lk.ijse.carrent.layerd.dto.UserDto;
 import lk.ijse.carrent.layerd.service.ServiceFactory;
 import lk.ijse.carrent.layerd.service.custom.UserService;
@@ -53,7 +54,7 @@ public class LoginFormController {
     private TextField txtPassword;
 
     @FXML
-    private TextField txtUSerId;
+    private  TextField txtUSerId;
 
     @FXML
     private TextField txtUserName;
@@ -65,9 +66,14 @@ public class LoginFormController {
     private AnchorPane loginMainAnchorPane;
 
 
-    UserService userService = (UserService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.USER);
 
+
+
+
+    UserService userService = (UserService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.USER);
+    CarCategoryController carCategoryController;
     public void initialize() {
+        carCategoryController = new CarCategoryController();
 
         lblCreateAcount.setVisible(false);
         txtEmail.setVisible(false);
@@ -137,6 +143,7 @@ public class LoginFormController {
                txtEmail.getText(),
                txtPassword.getText());
 
+
         try {
             String result = userService.addUser(userDto);
             new Alert(Alert.AlertType.INFORMATION,result).show();
@@ -160,9 +167,20 @@ public class LoginFormController {
     @FXML
     void btnSignInOnAction(ActionEvent event) {
 
+
         UserDto dto = new UserDto();
         dto.setUserName(txtUserName.getText());
         dto.setPassword(txtPassword.getText());
+
+        carCategoryController.runUserId(txtUserName.getText());
+
+
+
+
+
+
+
+
 
         try {
             Boolean isCorrect = userService.searchPassword(dto);
@@ -183,14 +201,16 @@ public class LoginFormController {
 
             }else {
                 new Alert(Alert.AlertType.ERROR,"Wrong  Password").show();
+
                 clear();
             }
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR,"Wrong UserName").show();
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             clear();
         }
 
     }
+
 }
 
 

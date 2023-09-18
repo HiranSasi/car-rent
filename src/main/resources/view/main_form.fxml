@@ -50,7 +50,7 @@
       </AnchorPane>
       <AnchorPane layoutX="-3.0" layoutY="78.0" prefHeight="595.0" prefWidth="237.0" style="-fx-background-color: #34495e;">
          <children>
-            <Button layoutX="11.0" layoutY="53.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="217.0" style="-fx-background-color: #34495e;" text="Dashboard" textFill="WHITE">
+            <Button layoutX="11.0" layoutY="53.0" mnemonicParsing="false" onAction="#btnDashBoardOnAction" prefHeight="69.0" prefWidth="217.0" style="-fx-background-color: #34495e;" text="Dashboard" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -58,7 +58,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="10.0" layoutY="138.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="217.0" style="-fx-background-color: #34495e;" text="    Car Category" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="138.0" mnemonicParsing="false" onAction="#btnCarCategoryOnAction" prefHeight="69.0" prefWidth="217.0" style="-fx-background-color: #34495e;" text="    Car Category" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -79,6 +79,24 @@
          </children>
       </AnchorPane>
       <Pane layoutX="234.0" layoutY="76.0" prefHeight="11.0" prefWidth="730.0" style="-fx-background-color: #34495e;" />
+      <AnchorPane fx:id="anchorpaneChanges" layoutX="234.0" layoutY="87.0" prefHeight="585.0" prefWidth="730.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <ImageView fitHeight="412.0" fitWidth="554.0" layoutX="125.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/toppng.com-car-1434x911.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="388.0" layoutY="511.0" prefHeight="24.0" prefWidth="261.0" text="HS CAR-RENT COMPANY">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="548.0" layoutY="541.0" prefHeight="17.0" prefWidth="141.0" text="You Ride, You Way.">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

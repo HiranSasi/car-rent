@@ -19,7 +19,7 @@ public class UserRepoImpl implements UserRepo {
     public UserEntity get(String s) throws Exception {
 
 
-
+        System.out.println("userHiran"+s);
 
         return (UserEntity) new CrudUtil().get("FROM UserEntity WHERE userName = '"+ s +"'");
 

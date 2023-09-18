@@ -25,6 +25,12 @@ public class CarCategoryEntity {
     @OneToMany(mappedBy = "carCategoryEntity", targetEntity = CarEntity.class)
     private List<CarEntity> carEntities;
 
+    public CarCategoryEntity(String id, String name, UserEntity userEntity) {
+        this.id = id;
+        this.name = name;
+        this.userEntity = userEntity;
+    }
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;

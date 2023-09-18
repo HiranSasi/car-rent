@@ -29,6 +29,11 @@ public class UserEntity {
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
+
+    public UserEntity(String id) {
+        this.id = id;
+    }
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
     @Column(name = "password", nullable = false, unique = true, length = 100)

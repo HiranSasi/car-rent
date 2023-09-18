@@ -1,5 +1,6 @@
 package lk.ijse.carrent.layerd.repository;
 
+import javafx.scene.control.Alert;
 import lk.ijse.carrent.layerd.util.SessionFactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -22,6 +23,7 @@ public class CrudUtil {
             return id = 10;
 
         } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
 
 
             transaction.rollback();
