@@ -1,4 +1,4 @@
-package lk.ijse.carrent.layerd;
+gitpackage lk.ijse.carrent.layerd;
 
 import lk.ijse.carrent.layerd.util.SessionFactoryConfiguration;
 import org.hibernate.Session;
