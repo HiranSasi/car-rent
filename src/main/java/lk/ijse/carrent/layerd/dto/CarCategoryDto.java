@@ -14,6 +14,10 @@ public class CarCategoryDto {
     private String id;
     private String name;
 
+    public CarCategoryDto(String id) {
+        this.id = id;
+    }
+
     public CarCategoryDto(String id, String name, UserEntity userEntity) {
         this.id = id;
         this.name = name;

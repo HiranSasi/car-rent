@@ -122,4 +122,38 @@ public class CarCategoryController {
     void btnClear(ActionEvent event) {
         clear();
     }
+
+    @FXML
+    void btnUpdateCarCategoryOnAction(ActionEvent event) {
+
+
+        CarCategoryDto carCategoryDto = new CarCategoryDto(txtId.getText(),txtName.getText(),userName);
+
+        try {
+          String result =  carCategoryService.update(carCategoryDto);
+          new Alert(Alert.AlertType.CONFIRMATION,result).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
+        clear();
+        initialize();
+
+    }
+
+
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+        CarCategoryDto carCategoryDto = new CarCategoryDto(txtId.getText());
+
+
+        try {
+            String result = carCategoryService.delete(carCategoryDto);
+            clear();
+            initialize();
+            new Alert(Alert.AlertType.CONFIRMATION,result).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
+
+    }
 }

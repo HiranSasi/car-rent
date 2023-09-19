@@ -36,4 +36,16 @@ public class CarCategoryRepoImpl implements CarCategoryRepo {
 
 
     }
+
+    @Override
+    public Integer update(CarCategoryEntity carCategoryEntity) throws Exception {
+       return new CrudUtil().update(carCategoryEntity);
+
+    }
+
+    @Override
+    public Integer delete(String s) throws Exception {
+
+       return new CrudUtil().delete("DELETE FROM CarCategoryEntity WHERE id = '"+ s +"'");
+    }
 }

@@ -9,4 +9,8 @@ public interface CarCategoryService extends SuperService {
 
     String addCarCategory(CarCategoryDto carCategoryDto) throws Exception;
     List<CarCategoryDto> getAll()throws Exception;
+
+    String update(CarCategoryDto carCategoryDto) throws Exception;
+
+    String delete(CarCategoryDto carCategoryDto) throws Exception;
 }

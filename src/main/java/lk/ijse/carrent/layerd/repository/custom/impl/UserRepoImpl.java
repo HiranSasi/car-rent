@@ -1,7 +1,5 @@
 package lk.ijse.carrent.layerd.repository.custom.impl;
 
-import javafx.scene.control.Alert;
-import lk.ijse.carrent.layerd.entity.CustomerEntity;
 import lk.ijse.carrent.layerd.entity.UserEntity;
 import lk.ijse.carrent.layerd.repository.CrudUtil;
 import lk.ijse.carrent.layerd.repository.custom.UserRepo;
@@ -21,14 +19,23 @@ public class UserRepoImpl implements UserRepo {
     public UserEntity get(String s) throws Exception {
 
 
-        System.out.println("userHiran"+s);
-
-        return (UserEntity) new CrudUtil().get("FROM UserEntity WHERE userName = '"+ s +"'");
+        return (UserEntity) new CrudUtil().get("FROM UserEntity WHERE userName = '" + s + "'");
 
     }
 
     @Override
     public List<UserEntity> getAll() throws Exception {
         return null;
+    }
+
+    @Override
+    public Integer update(UserEntity userEntity) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Integer delete(String s) throws Exception {
+        return null;
+
     }
 }

@@ -1,5 +1,6 @@
 package lk.ijse.carrent.layerd.service.custom.impl;
 
+import javafx.scene.control.Alert;
 import lk.ijse.carrent.layerd.dto.CarCategoryDto;
 import lk.ijse.carrent.layerd.entity.CarCategoryEntity;
 import lk.ijse.carrent.layerd.entity.UserEntity;
@@ -19,12 +20,12 @@ public class CarCategoryServiceImpl implements CarCategoryService {
     @Override
     public String addCarCategory(CarCategoryDto carCategoryDto) throws Exception {
 
-        System.out.println("userid =" + carCategoryDto.getUserid());
+
 
         UserEntity userEntity = new UserEntity();
         userEntity.setUserName(carCategoryDto.getUserid());
         userEntity = userRepo.get(userEntity.getUserName());
-        System.out.println("usernamhira =" + userEntity.getId());
+
 
         CarCategoryEntity carCategoryEntity = new CarCategoryEntity(carCategoryDto.getId(), carCategoryDto.getName(), new UserEntity(userEntity.getId(), userEntity.getUserName(), userEntity.getName(), userEntity.getEmail(), userEntity.getPassword()
         ));
@@ -54,5 +55,46 @@ public class CarCategoryServiceImpl implements CarCategoryService {
         }
         return dtos;
 
+    }
+
+    @Override
+    public String update(CarCategoryDto carCategoryDto) {
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserName(carCategoryDto.getUserid());
+        try {
+            userEntity = userRepo.get(userEntity.getUserName());
+            CarCategoryEntity carCategoryEntity = new CarCategoryEntity(carCategoryDto.getId(), carCategoryDto.getName(), new UserEntity(userEntity.getId(), userEntity.getUserName(), userEntity.getName(), userEntity.getEmail(), userEntity.getPassword()
+            ));
+
+          Integer id =  carCategoryRepo.update(carCategoryEntity);
+
+
+            if(id != -1){
+                return "Update Success";
+            }else {
+                return "Fail Success";
+            }
+        } catch (Exception e) {
+
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            return "Fail";
+        }
+
+
+    }
+
+    @Override
+    public String delete(CarCategoryDto dto) throws Exception {
+         CarCategoryEntity carCategoryEntity = new CarCategoryEntity(dto.getId());
+
+        Integer id = carCategoryRepo.delete(carCategoryEntity.getId());
+
+        if (id != -1){
+
+            return "Delete Success";
+        }else {
+            return "Delete Fail";
+        }
     }
 }

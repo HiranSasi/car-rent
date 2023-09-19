@@ -11,10 +11,14 @@ import java.util.List;
 public class CrudUtil {
 
 
-    Session session = SessionFactoryConfiguration.getInstance().getSession();
-    Transaction transaction = session.beginTransaction();
+
+
 
     public Integer add(Object object) {
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+
+        Transaction transaction = session.beginTransaction();
+
 
 
         Integer id;
@@ -34,6 +38,9 @@ public class CrudUtil {
     }
 
     public Object get(String hql){
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+
+
 
 
         Query query = session.createQuery(hql);
@@ -44,9 +51,62 @@ public class CrudUtil {
     }
 
     public List<Object> getAll(String hql){
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+
 
         Query query = session.createQuery(hql);
         List<Object> t = query.list();
         return t;
+    }
+
+    public Integer update(Object object){
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+
+        Transaction transaction = session.beginTransaction();
+        Integer index;
+       try {
+
+
+         session.update(object);
+         transaction.commit();
+         return index = 10;
+
+
+       }catch (Exception e){
+           transaction.rollback();
+           new Alert(Alert.AlertType.ERROR,"ID cant update").show();
+           return index = -1;
+       }
+
+    }
+
+    public Integer delete(String hql){
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction ;
+        Integer index;
+
+        try {
+            Query query = session.createQuery(hql);
+            session.beginTransaction();
+
+            Integer executeUpdate = query.executeUpdate();
+            session.getTransaction().commit();
+             if (executeUpdate > 0){
+                 System.out.println("Delect");
+                 return index =10;
+
+             }else {
+                 return index  = -1;
+             }
+
+
+        }catch (Exception e){
+
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            return index=-1;
+
+        }
+
+
     }
 }

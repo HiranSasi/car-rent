@@ -7,4 +7,8 @@ public interface CrudRepo<T,ID> extends SuperRepo {
     Integer add(T t) throws Exception;
     T get(ID id) throws Exception;
     List<T> getAll() throws Exception;
+
+    Integer update(T t) throws Exception;
+
+     Integer delete(ID id) throws Exception;
 }

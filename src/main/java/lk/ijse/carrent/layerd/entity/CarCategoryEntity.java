@@ -22,6 +22,10 @@ public class CarCategoryEntity {
     @Column(name = "name", length = 55, nullable = false, unique = true)
     private String name;
 
+    public CarCategoryEntity(String id) {
+        this.id = id;
+    }
+
     @OneToMany(mappedBy = "carCategoryEntity", targetEntity = CarEntity.class)
     private List<CarEntity> carEntities;
 
