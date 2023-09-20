@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="491.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.carrent.layerd.controller.CarAddController">
+   <children>
+      <Label layoutY="2.0" prefHeight="24.0" prefWidth="203.0" text="Car add or Update" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbCarCategory" layoutX="14.0" layoutY="40.0" onAction="#cmbCarCategoryOnAction" prefHeight="25.0" prefWidth="191.0" promptText="Select Car-Category" />
+      <TextField fx:id="txtCarCategoryId" layoutX="309.0" layoutY="40.0" prefHeight="25.0" prefWidth="124.0" />
+   </children>
+</AnchorPane>

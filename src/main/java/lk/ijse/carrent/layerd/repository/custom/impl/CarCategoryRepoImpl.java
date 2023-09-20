@@ -15,7 +15,7 @@ public class CarCategoryRepoImpl implements CarCategoryRepo {
 
     @Override
     public CarCategoryEntity get(String s) throws Exception {
-        return null;
+        return (CarCategoryEntity) new CrudUtil().get("FROM CarCategoryEntity WHERE name = '" + s + "'");
     }
 
     @Override

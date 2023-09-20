@@ -25,6 +25,16 @@ public class MainFormController {
     }
 
     @FXML
+    void btnCarDetailsOnAction(ActionEvent event) throws IOException {
+
+        Parent root =FXMLLoader.load(getClass().getResource("/view/car_details_from.fxml"));
+        this.anchorpaneChanges.getChildren().clear();
+        this.anchorpaneChanges.getChildren().add(root);
+
+
+    }
+
+    @FXML
     void btnDashBoardOnAction(ActionEvent event) throws IOException {
         Parent root =FXMLLoader.load(getClass().getResource("/view/dashboard_form.fxml"));
         this.anchorpaneChanges.getChildren().clear();

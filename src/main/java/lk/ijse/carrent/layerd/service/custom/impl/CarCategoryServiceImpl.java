@@ -97,4 +97,13 @@ public class CarCategoryServiceImpl implements CarCategoryService {
             return "Delete Fail";
         }
     }
+
+    @Override
+    public CarCategoryDto search(String id) throws Exception {
+        CarCategoryEntity carCategoryEntity = carCategoryRepo.get(id);
+
+        CarCategoryDto carCategoryDto = new CarCategoryDto(carCategoryEntity.getId());
+        return carCategoryDto;
+
+    }
 }

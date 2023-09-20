@@ -26,13 +26,14 @@ public class CrudUtil {
         try {
             session.save(object);
             transaction.commit();
+
             return id = 10;
 
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
 
 
-            transaction.rollback();
+
             return -1;
         }
     }
@@ -92,7 +93,7 @@ public class CrudUtil {
             Integer executeUpdate = query.executeUpdate();
             session.getTransaction().commit();
              if (executeUpdate > 0){
-                 System.out.println("Delect");
+
                  return index =10;
 
              }else {

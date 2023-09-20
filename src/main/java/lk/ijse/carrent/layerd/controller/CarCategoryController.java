@@ -41,10 +41,13 @@ public class CarCategoryController {
 
     public void initialize() {
 
+
         setValueFactory();
         try {
             List<CarCategoryDto> categoryDtos = carCategoryService.getAll();
             setTableData(categoryDtos);
+
+
 
 
 
@@ -55,12 +58,14 @@ public class CarCategoryController {
 
     }
 
+
+
     private void setTableData(List<CarCategoryDto> categoryDtos) {
         ObservableList<CarCategoryTm> categoryTms = FXCollections.observableArrayList();
         for (CarCategoryDto dto:categoryDtos
              ) {
             var tm = new CarCategoryTm(dto.getId(), dto.getName(), dto.getUserid());
-            System.out.println("hhh323="+dto.getUserid());
+
                     categoryTms.add(tm);
         }
         tblCarCategory.setItems(categoryTms);

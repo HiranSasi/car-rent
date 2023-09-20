@@ -1,6 +1,7 @@
 package lk.ijse.carrent.layerd.service;
 
 import lk.ijse.carrent.layerd.service.custom.impl.CarCategoryServiceImpl;
+import lk.ijse.carrent.layerd.service.custom.impl.CarDetailsServiceImpl;
 import lk.ijse.carrent.layerd.service.custom.impl.UserServiceImpl;
 
 public class ServiceFactory {
@@ -28,6 +29,8 @@ public class ServiceFactory {
                 return new UserServiceImpl();
             case CARCATEGORY:
                 return new CarCategoryServiceImpl();
+            case CARDETAILS:
+                return new CarDetailsServiceImpl();
 
 
 
@@ -41,7 +44,7 @@ public class ServiceFactory {
 
     public enum ServiceType{
 
-       USER,CARCATEGORY
+       USER,CARCATEGORY,CARDETAILS
 
     }
 
