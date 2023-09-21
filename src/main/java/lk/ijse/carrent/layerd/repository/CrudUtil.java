@@ -15,26 +15,35 @@ public class CrudUtil {
 
 
     public Integer add(Object object) {
-        Session session = SessionFactoryConfiguration.getInstance().getSession();
 
-        Transaction transaction = session.beginTransaction();
+
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.getTransaction();
 
 
 
         Integer id;
 
         try {
+
+
+             transaction.begin();
             session.save(object);
             transaction.commit();
 
             return id = 10;
 
         } catch (Exception e) {
+
+            transaction.rollback();
+
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
 
 
 
             return -1;
+        }finally {
+            session.close();
         }
     }
 

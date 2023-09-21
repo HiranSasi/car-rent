@@ -11,4 +11,6 @@ public interface CrudRepo<T,ID> extends SuperRepo {
     Integer update(T t) throws Exception;
 
      Integer delete(ID id) throws Exception;
+
+     Integer save (T t) throws Exception;
 }

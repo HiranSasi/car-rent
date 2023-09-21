@@ -33,6 +33,8 @@ public class RentEntity {
     private Double total;
     @Column(name = "balance")
     private Double balance;
+    @Column(name = "user_name",length = 100,nullable = false)
+    private String userName;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cust_id", nullable = false)
@@ -42,9 +44,7 @@ public class RentEntity {
     @JoinColumn(name = "car_id", nullable = false)
     private CarEntity carEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+
 
 
 

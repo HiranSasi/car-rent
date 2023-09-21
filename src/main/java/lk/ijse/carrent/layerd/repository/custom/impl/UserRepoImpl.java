@@ -38,4 +38,9 @@ public class UserRepoImpl implements UserRepo {
         return null;
 
     }
+
+    @Override
+    public Integer save(UserEntity userEntity) throws Exception {
+return null;
+    }
 }

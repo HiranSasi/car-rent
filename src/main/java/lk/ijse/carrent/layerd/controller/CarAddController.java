@@ -4,11 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import lk.ijse.carrent.layerd.dto.CarCategoryDto;
+import lk.ijse.carrent.layerd.dto.CarDetailsDto;
+import lk.ijse.carrent.layerd.dto.tm.CarDetailsTm;
 import lk.ijse.carrent.layerd.service.ServiceFactory;
 import lk.ijse.carrent.layerd.service.custom.CarCategoryService;
+import lk.ijse.carrent.layerd.service.custom.CarDetailsSrevice;
 
 import java.util.List;
 
@@ -19,26 +23,78 @@ public class CarAddController {
 
     @FXML
     private TextField txtCarCategoryId;
+
+    static String userName;
+    CarDetailsSrevice carDetailsSrevice = (CarDetailsSrevice) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.CARDETAILS);
+    @FXML
+    private TextField txtBrand;
+    @FXML
+    private TextField txtCarId;
+    @FXML
+    private TextField txtModel;
+    @FXML
+    private TextField txtNumber;
+    @FXML
+    private TextField txtPricePerDay;
+    @FXML
+    private TextField txtYer;
+    @FXML
+    private TableColumn<?, ?> colBrand;
+    @FXML
+    private TableColumn<?, ?> colCarCategoryId;
+    @FXML
+    private TableColumn<?, ?> colId;
+    @FXML
+    private TableColumn<?, ?> colModel;
+    @FXML
+    private TableColumn<?, ?> colNumber;
     CarCategoryService carCategoryService = (CarCategoryService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.CARCATEGORY);
+    @FXML
+    private TableColumn<?, ?> colPriceperDay;
+    @FXML
+    private TableView<CarDetailsTm> tblCar;
 
     public void initialize() {
 
+        setValueFactory();
         List<CarCategoryDto> categoryDtos = null;
+        List<CarDetailsDto> dtos = null;
+
         try {
             categoryDtos = carCategoryService.getAll();
+            dtos = carDetailsSrevice.getAll();
+            setCarDetails(dtos);
             setCarCategoryName(categoryDtos);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
 
+    }
 
+    private void setValueFactory() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colCarCategoryId.setCellValueFactory(new PropertyValueFactory<>("carCategoryId"));
+        colBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        colModel.setCellValueFactory(new PropertyValueFactory<>("model"));
+        colNumber.setCellValueFactory(new PropertyValueFactory<>("vehicleNumber"));
+        colPriceperDay.setCellValueFactory(new PropertyValueFactory<>("pricePerDay"));
+    }
+
+    private void setCarDetails(List<CarDetailsDto> dtos) {
+        ObservableList<CarDetailsTm> obl = FXCollections.observableArrayList();
+        for (CarDetailsDto dto : dtos
+        ) {
+            var tm = new CarDetailsTm(dto.getId(), dto.getCarCategoryId(), dto.getBrand(), dto.getModel(), dto.getVehicleNumber(), dto.getPricePerDay());
+            obl.add(tm);
+        }
+        tblCar.setItems(obl);
     }
 
     private void setCarCategoryName(List<CarCategoryDto> categoryDtos) {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        for (CarCategoryDto dto:categoryDtos
+        for (CarCategoryDto dto : categoryDtos
         ) {
             obList.add(dto.getName());
         }
@@ -56,5 +112,113 @@ public class CarAddController {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void runUserId(String id) {
+
+
+        userName = id;
+    }
+
+    @FXML
+    void btnAddOnAction(ActionEvent event) {
+
+        String carCategoryName = cmbCarCategory.getValue();
+
+        CarDetailsDto carDetailsDto = new CarDetailsDto(txtCarId.getText()
+                , txtCarCategoryId.getText()
+                , userName,
+                txtBrand.getText(),
+                txtModel.getText(),
+                Integer.parseInt(txtYer.getText()),
+                txtNumber.getText(),
+                Double.parseDouble(txtPricePerDay.getText()),
+                carCategoryName);
+
+        try {
+            String result = carDetailsSrevice.addCar(carDetailsDto);
+            initialize();
+            clear();
+
+            new Alert(Alert.AlertType.INFORMATION, result).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) {
+
+
+        String carCategoryName = cmbCarCategory.getValue();
+
+        CarDetailsDto carDetailsDto = new CarDetailsDto(txtCarId.getText()
+                , txtCarCategoryId.getText()
+                , userName,
+                txtBrand.getText(),
+                txtModel.getText(),
+                Integer.parseInt(txtYer.getText()),
+                txtNumber.getText(),
+                Double.parseDouble(txtPricePerDay.getText()),
+                carCategoryName);
+
+        try {
+            String result = carDetailsSrevice.update(carDetailsDto);
+            initialize();
+            clear();
+
+            new Alert(Alert.AlertType.INFORMATION, result).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void getValue(MouseEvent mouseEvent) throws Exception {
+        Integer index = tblCar.getSelectionModel().getSelectedIndex();
+
+        if (index <= -1) {
+            new Alert(Alert.AlertType.ERROR, "Error").show();
+        } else {
+
+
+            CarDetailsDto carDetailsDto = carDetailsSrevice.search(colId.getCellData(index).toString());
+            txtCarId.setText(carDetailsDto.getId());
+            txtCarCategoryId.setText(carDetailsDto.getCarCategoryId());
+            txtBrand.setText(carDetailsDto.getBrand());
+            txtModel.setText(carDetailsDto.getModel());
+            txtYer.setText(String.valueOf(carDetailsDto.getYear()));
+            txtNumber.setText(carDetailsDto.getVehicleNumber());
+            txtPricePerDay.setText(String.valueOf(carDetailsDto.getPricePerDay()));
+
+        }
+    }
+
+    void clear() {
+
+        txtCarId.setText("");
+        txtBrand.setText("");
+        txtModel.setText("");
+        txtYer.setText("");
+        txtNumber.setText("");
+        txtPricePerDay.setText("");
+
+    }
+
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+
+
+        try {
+            String result = carDetailsSrevice.delete(txtCarId.getText());
+            clear();
+            initialize();
+            new Alert(Alert.AlertType.CONFIRMATION, result).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 }

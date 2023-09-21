@@ -61,9 +61,11 @@ public class CarCategoryController {
 
 
     private void setTableData(List<CarCategoryDto> categoryDtos) {
+
         ObservableList<CarCategoryTm> categoryTms = FXCollections.observableArrayList();
         for (CarCategoryDto dto:categoryDtos
              ) {
+
             var tm = new CarCategoryTm(dto.getId(), dto.getName(), dto.getUserid());
 
                     categoryTms.add(tm);
@@ -74,7 +76,7 @@ public class CarCategoryController {
     private void setValueFactory() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colUserId.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        colUserId.setCellValueFactory(new PropertyValueFactory<>("userName"));
     }
 
     public void runUserId(String id){

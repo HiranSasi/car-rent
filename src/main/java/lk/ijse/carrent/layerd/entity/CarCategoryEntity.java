@@ -14,6 +14,11 @@ import java.util.List;
 @Getter
 @ToString
 public class CarCategoryEntity {
+    public CarCategoryEntity(String id, String name, String userName) {
+        this.id = id;
+        this.name = name;
+        this.userName = userName;
+    }
 
     @Id
     @Column(name = "id")
@@ -22,6 +27,9 @@ public class CarCategoryEntity {
     @Column(name = "name", length = 55, nullable = false, unique = true)
     private String name;
 
+    @Column(name = "user_name",length = 100,nullable = false)
+    private String userName;
+
     public CarCategoryEntity(String id) {
         this.id = id;
     }
@@ -29,13 +37,12 @@ public class CarCategoryEntity {
     @OneToMany(mappedBy = "carCategoryEntity", targetEntity = CarEntity.class)
     private List<CarEntity> carEntities;
 
-    public CarCategoryEntity(String id, String name, UserEntity userEntity) {
+    public CarCategoryEntity(String id, String name) {
         this.id = id;
         this.name = name;
-        this.userEntity = userEntity;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+
+
+
 }

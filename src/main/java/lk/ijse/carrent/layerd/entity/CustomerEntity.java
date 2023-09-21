@@ -23,6 +23,8 @@ public class CustomerEntity {
     private String name;
     @Column(name = "address", length = 100, nullable = false)
     private String Address;
+    @Column(name = "user_name",length = 100,nullable = false)
+    private String userName;
     @ElementCollection
     @CollectionTable(
             name = "customer_mobile",
@@ -35,9 +37,7 @@ public class CustomerEntity {
 
     private List<RentEntity> rentEntities;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+
 
 
 

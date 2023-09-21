@@ -22,13 +22,10 @@ public class CarCategoryServiceImpl implements CarCategoryService {
 
 
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserName(carCategoryDto.getUserid());
-        userEntity = userRepo.get(userEntity.getUserName());
 
 
-        CarCategoryEntity carCategoryEntity = new CarCategoryEntity(carCategoryDto.getId(), carCategoryDto.getName(), new UserEntity(userEntity.getId(), userEntity.getUserName(), userEntity.getName(), userEntity.getEmail(), userEntity.getPassword()
-        ));
+
+       CarCategoryEntity carCategoryEntity = new CarCategoryEntity(carCategoryDto.getId(),carCategoryDto.getName(),carCategoryDto.getUserid());
         Integer id = carCategoryRepo.add(carCategoryEntity);
 
         if (id != -1) {
@@ -49,7 +46,7 @@ public class CarCategoryServiceImpl implements CarCategoryService {
 
         for (CarCategoryEntity entity : carCategoryEntities
         ) {
-            dtos.add(new CarCategoryDto(entity.getId(), entity.getName(), entity.getUserEntity().getId()));
+            dtos.add(new CarCategoryDto(entity.getId(), entity.getName(), entity.getUserName()));
 
 
         }
@@ -60,12 +57,11 @@ public class CarCategoryServiceImpl implements CarCategoryService {
     @Override
     public String update(CarCategoryDto carCategoryDto) {
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserName(carCategoryDto.getUserid());
+
         try {
-            userEntity = userRepo.get(userEntity.getUserName());
-            CarCategoryEntity carCategoryEntity = new CarCategoryEntity(carCategoryDto.getId(), carCategoryDto.getName(), new UserEntity(userEntity.getId(), userEntity.getUserName(), userEntity.getName(), userEntity.getEmail(), userEntity.getPassword()
-            ));
+
+            CarCategoryEntity carCategoryEntity = new CarCategoryEntity(carCategoryDto.getId(), carCategoryDto.getName(), carCategoryDto.getUserid()
+            );
 
           Integer id =  carCategoryRepo.update(carCategoryEntity);
 

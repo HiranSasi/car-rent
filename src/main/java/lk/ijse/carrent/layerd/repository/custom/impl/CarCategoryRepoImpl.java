@@ -15,6 +15,7 @@ public class CarCategoryRepoImpl implements CarCategoryRepo {
 
     @Override
     public CarCategoryEntity get(String s) throws Exception {
+        System.out.println("lol=+="+s);
         return (CarCategoryEntity) new CrudUtil().get("FROM CarCategoryEntity WHERE name = '" + s + "'");
     }
 
@@ -47,5 +48,10 @@ public class CarCategoryRepoImpl implements CarCategoryRepo {
     public Integer delete(String s) throws Exception {
 
        return new CrudUtil().delete("DELETE FROM CarCategoryEntity WHERE id = '"+ s +"'");
+    }
+
+    @Override
+    public Integer save(CarCategoryEntity carCategoryEntity) throws Exception {
+        return null;
     }
 }

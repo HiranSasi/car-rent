@@ -30,34 +30,16 @@ public class UserEntity {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    public UserEntity(String id) {
-        this.id = id;
-    }
+
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
     @Column(name = "password", nullable = false, unique = true, length = 100)
     private String password;
 
-    @OneToMany(mappedBy = "userEntity", targetEntity = CarCategoryEntity.class)
-    private List<CarCategoryEntity> carCategoryEntities;
-
-   @OneToMany(mappedBy = "userEntity", targetEntity = CarEntity.class)
-    private List<CarEntity> carEntities;
-
-    @OneToMany(mappedBy = "userEntity", targetEntity = RentEntity.class)
-    private List<RentEntity> rentEntities;
-
-    @OneToMany(mappedBy = "userEntity", targetEntity = CustomerEntity.class)
-    private List<CustomerEntity> customerEntities;
 
 
-    public UserEntity(String id, String userName, String name, String email, String password) {
-        this.id = id;
-        this.userName = userName;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+
+
 
 }
