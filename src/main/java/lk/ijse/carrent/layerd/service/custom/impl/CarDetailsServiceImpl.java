@@ -8,14 +8,20 @@ import lk.ijse.carrent.layerd.repository.custom.CarCategoryRepo;
 import lk.ijse.carrent.layerd.repository.custom.CarDetailsRepo;
 import lk.ijse.carrent.layerd.service.custom.CarDetailsSrevice;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CarDetailsServiceImpl implements CarDetailsSrevice {
+    static Integer year = 1970;
 CarCategoryRepo carCategoryRepo = (CarCategoryRepo) RepoFactory.getInstance().getRepo(RepoFactory.RepoType.CARCATEGORY);
 CarDetailsRepo carDetailsRepo = (CarDetailsRepo) RepoFactory.getInstance().getRepo(RepoFactory.RepoType.CARDETAILS);
     @Override
     public String addCar(CarDetailsDto carDetailsDto) throws Exception {
+        LocalDate localDate = LocalDate.now();
+        Integer date = localDate.getYear();
+        if (carDetailsDto.getYear()>year && carDetailsDto.getYear()<(date+1)){
          CarCategoryEntity carCategoryEntity = new CarCategoryEntity();
          carCategoryEntity.setName(carDetailsDto.getCarCategoryName());
 
@@ -28,6 +34,9 @@ CarDetailsRepo carDetailsRepo = (CarDetailsRepo) RepoFactory.getInstance().getRe
             return " Success Added";
         }else {
             return "Fail Added";
+        }}else {
+
+            return "Car Year is Not Valid";
         }
     }
 
@@ -55,6 +64,10 @@ CarDetailsRepo carDetailsRepo = (CarDetailsRepo) RepoFactory.getInstance().getRe
 
     @Override
     public String update(CarDetailsDto carDetailsDto) throws Exception {
+
+        LocalDate localDate = LocalDate.now();
+        Integer date = localDate.getYear();
+        if (carDetailsDto.getYear()>year && carDetailsDto.getYear()<(date+1)){
         CarCategoryEntity carCategoryEntity = new CarCategoryEntity();
         carCategoryEntity.setName(carDetailsDto.getCarCategoryName());
 
@@ -67,6 +80,8 @@ CarDetailsRepo carDetailsRepo = (CarDetailsRepo) RepoFactory.getInstance().getRe
             return " Update Success";
         }else {
             return "Fail Update";
+        }}else {
+            return "Car Year is Not Valid";
         }
     }
 
@@ -82,6 +97,19 @@ CarDetailsRepo carDetailsRepo = (CarDetailsRepo) RepoFactory.getInstance().getRe
         }else {
             return "Delete Fail";
         }
+    }
+
+    @Override
+    public List<String> getBrand(String id) throws Exception {
+        List<String> carBrand = carDetailsRepo.getCarBrand(id);
+        return carBrand;
+    }
+
+    @Override
+    public List<String> getCarModel(String carCategoryId, String brand) throws Exception {
+      List<String> carModel = carDetailsRepo.getCarModel(carCategoryId,brand);
+      return  carModel;
+
     }
 }
 

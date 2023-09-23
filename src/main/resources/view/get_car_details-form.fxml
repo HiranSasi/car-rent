@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="491.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.carrent.layerd.controller.GetCarDetailsController">
+   <children>
+      <Label layoutY="1.0" prefHeight="24.0" prefWidth="203.0" text="Car Details" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbCarCategory" layoutX="14.0" layoutY="37.0" onAction="#cmbCarCategoryOnAction" prefHeight="25.0" prefWidth="176.0" promptText="Select Car Category">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
+      <TextField fx:id="txtCarCategoryId" layoutX="216.0" layoutY="37.0" promptText="Car Category Id" />
+      <ComboBox fx:id="cmbCarModel" layoutX="14.0" layoutY="92.0" onAction="#cmbCarBrandOnAction" prefHeight="25.0" prefWidth="176.0" promptText="Select Car Brand">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
+      <ComboBox fx:id="cmbCarModel1" layoutX="216.0" layoutY="92.0" prefHeight="25.0" prefWidth="176.0" promptText="Select Car Model">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ComboBox>
+   </children>
+</AnchorPane>

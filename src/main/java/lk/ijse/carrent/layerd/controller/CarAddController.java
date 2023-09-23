@@ -1,5 +1,6 @@
 package lk.ijse.carrent.layerd.controller;
 
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import lk.ijse.carrent.layerd.dto.CarCategoryDto;
 import lk.ijse.carrent.layerd.dto.CarDetailsDto;
 import lk.ijse.carrent.layerd.dto.tm.CarDetailsTm;
@@ -14,9 +17,19 @@ import lk.ijse.carrent.layerd.service.ServiceFactory;
 import lk.ijse.carrent.layerd.service.custom.CarCategoryService;
 import lk.ijse.carrent.layerd.service.custom.CarDetailsSrevice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarAddController {
+
+    @FXML
+    private Label lblBack;
+
+
+    @FXML
+    private AnchorPane anchorPaneTbl;
+    @FXML
+    private Label lblShowDetails;
 
     @FXML
     private ComboBox<String> cmbCarCategory;
@@ -57,18 +70,31 @@ public class CarAddController {
     public void initialize() {
 
         setValueFactory();
-        List<CarCategoryDto> categoryDtos = null;
-        List<CarDetailsDto> dtos = null;
+        getCmb();
+        getAllTbl();
+        lblBack.setVisible(false);
+        backTbl();
 
+    }
+    private void getAllTbl(){
+        List<CarDetailsDto> dtos = new ArrayList<>();
         try {
-            categoryDtos = carCategoryService.getAll();
             dtos = carDetailsSrevice.getAll();
             setCarDetails(dtos);
-            setCarCategoryName(categoryDtos);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void getCmb(){
+        List<CarCategoryDto> categoryDtos = new ArrayList<>();
+        try {
+            categoryDtos = carCategoryService.getAll();
+            setCarCategoryName(categoryDtos);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -137,7 +163,7 @@ public class CarAddController {
 
         try {
             String result = carDetailsSrevice.addCar(carDetailsDto);
-            initialize();
+           getAllTbl();
             clear();
 
             new Alert(Alert.AlertType.INFORMATION, result).show();
@@ -166,7 +192,7 @@ public class CarAddController {
 
         try {
             String result = carDetailsSrevice.update(carDetailsDto);
-            initialize();
+            getAllTbl();
             clear();
 
             new Alert(Alert.AlertType.INFORMATION, result).show();
@@ -221,4 +247,40 @@ public class CarAddController {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clear();
+
+    }
+
+    @FXML
+    void showAllDetailsOnAction(MouseEvent event) {
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),anchorPaneTbl);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
+        lblShowDetails.setVisible(false);
+        lblBack.setVisible(true);
+
+    }
+
+    void backTbl(){
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),anchorPaneTbl);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
+        lblShowDetails.setVisible(true);
+        lblBack.setVisible(false);
+
+    }
+
+
+    @FXML
+    void backOnAction(MouseEvent event) {
+        backTbl();
+
+    }
+
 }

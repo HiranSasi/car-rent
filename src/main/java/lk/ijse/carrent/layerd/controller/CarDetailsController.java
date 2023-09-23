@@ -32,7 +32,12 @@ CarCategoryController carCategoryController;
     }
 
     @FXML
-    void btnCarDetailsOnAction(ActionEvent event) {
+    void btnCarDetailsOnAction(ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/View/get_car_details-form.fxml"));
+        this.anchorPaneChange  .getChildren().clear();
+        this.anchorPaneChange.getChildren().add(root);
+
 
     }
 

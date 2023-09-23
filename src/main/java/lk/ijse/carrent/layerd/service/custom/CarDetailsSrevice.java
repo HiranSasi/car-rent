@@ -16,4 +16,9 @@ public interface CarDetailsSrevice extends SuperService {
     String update(CarDetailsDto carDetailsDto) throws Exception;
 
     String delete(String id) throws Exception;
+
+    List<String> getBrand(String id) throws Exception;
+
+    List<String> getCarModel(String carCategoryId,String brand) throws Exception;
+
 }
