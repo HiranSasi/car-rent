@@ -111,5 +111,17 @@ CarDetailsRepo carDetailsRepo = (CarDetailsRepo) RepoFactory.getInstance().getRe
       return  carModel;
 
     }
+
+    @Override
+    public List<CarDetailsDto> getCarAll(CarDetailsDto carDetailsDto) throws Exception {
+        List<CarEntity>carEntities = carDetailsRepo.getCarAll(carDetailsDto.getCarCategoryId(),carDetailsDto.getBrand(),carDetailsDto.getModel());
+        List<CarDetailsDto> carDetailsDtos = new ArrayList<>();
+
+        for (CarEntity entity:carEntities
+             ) {
+            carDetailsDtos.add(new CarDetailsDto(entity.getId(),entity.getUserName(),entity.getYear(),entity.getVehicleNumber(),entity.getPricePerDay()));
+        }
+        return carDetailsDtos;
+    }
 }
 

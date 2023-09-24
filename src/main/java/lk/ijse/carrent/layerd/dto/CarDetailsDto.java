@@ -23,6 +23,20 @@ public class CarDetailsDto {
 
     private Integer year;
 
+    public CarDetailsDto(String carCategoryId, String brand, String model) {
+        this.carCategoryId = carCategoryId;
+        this.brand = brand;
+        this.model = model;
+    }
+
+    public CarDetailsDto(String id, String userName, Integer year, String vehicleNumber, Double pricePerDay) {
+        this.id = id;
+        this.userName = userName;
+        this.year = year;
+        this.vehicleNumber = vehicleNumber;
+        this.pricePerDay = pricePerDay;
+    }
+
     private String vehicleNumber;
 
     private Double pricePerDay;

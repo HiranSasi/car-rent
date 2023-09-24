@@ -10,4 +10,6 @@ public interface CarDetailsRepo extends CrudRepo<CarEntity,String> {
     List<String> getCarBrand(String id) throws Exception;
     List<String> getCarModel(String carCategoryId,String brand) throws Exception;
 
+    List<CarEntity> getCarAll(String id,String brand,String model) throws Exception;
+
 }

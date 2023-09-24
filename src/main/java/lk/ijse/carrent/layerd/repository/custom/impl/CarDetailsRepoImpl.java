@@ -106,6 +106,34 @@ public class CarDetailsRepoImpl implements CarDetailsRepo {
 
         }
     }
+
+    @Override
+    public List<CarEntity> getCarAll(String id, String brand, String model) throws Exception {
+        String hql = " FROM CarEntity as c where c.carCategoryEntity=:id AND c.brand=:brand AND c.model=:model";
+
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.getTransaction();
+        try {
+            transaction.begin();
+            Query query = session.createQuery(hql);
+            query.setParameter("id",id);
+            query.setParameter("brand",brand);
+            query.setParameter("model",model);
+            List<CarEntity> carEntities = query.list();
+
+
+            transaction.commit();
+
+            return carEntities;
+
+        }catch (Exception e){
+            transaction.rollback();
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR,"Hiran").show();
+            return null;
+
+        }
+    }
 }
 
 
