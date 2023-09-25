@@ -43,4 +43,12 @@ public class MainFormController {
 
     }
 
+    @FXML
+    void btnCustomerOnAction(ActionEvent event) throws IOException {
+        Parent root =FXMLLoader.load(getClass().getResource("/view/customer_form.fxml"));
+        this.anchorpaneChanges.getChildren().clear();
+        this.anchorpaneChanges.getChildren().add(root);
+
+    }
+
 }

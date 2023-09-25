@@ -73,9 +73,12 @@ public class LoginFormController {
     UserService userService = (UserService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.USER);
     CarCategoryController carCategoryController;
     CarAddController carAddController;
+
+    CustomerController customerController;
     public void initialize() {
         carCategoryController = new CarCategoryController();
         carAddController = new CarAddController();
+        customerController = new CustomerController();
 
         lblCreateAcount.setVisible(false);
         txtEmail.setVisible(false);
@@ -176,6 +179,7 @@ public class LoginFormController {
 
         carCategoryController.runUserId(txtUserName.getText());
         carAddController.runUserId(txtUserName.getText());
+        customerController.runUserId(txtUserName.getText());
 
 
         try {
