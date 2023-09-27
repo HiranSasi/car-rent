@@ -9,4 +9,10 @@ public interface CustomerService extends SuperService {
     String addCustomer(CustomerDto customerDto) throws Exception;
 
     List<CustomerDto> getAllCustomer() throws Exception;
+
+    CustomerDto searchCustomer(String id)throws Exception;
+
+    String updateCustomer(CustomerDto customerDto) throws Exception;
+
+    String delete(String id) throws Exception;
 }

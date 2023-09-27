@@ -21,7 +21,7 @@ public class CustomerRepoImpl implements CustomerRepo {
 
     @Override
     public CustomerEntity get(String s) throws Exception {
-        return null;
+        return (CustomerEntity) new CrudUtil().get("FROM CustomerEntity WHERE id = '" + s + "'");
     }
 
     @Override
@@ -42,12 +42,13 @@ public class CustomerRepoImpl implements CustomerRepo {
 
     @Override
     public Integer update(CustomerEntity customerEntity) throws Exception {
-        return null;
+        return new CrudUtil().update(customerEntity);
     }
 
     @Override
     public Integer delete(String s) throws Exception {
-        return null;
+        System.out.println("hhh==="+s);
+        return new CrudUtil().delete("DELETE FROM CustomerEntity WHERE id = '"+ s +"'");
     }
 
     @Override

@@ -41,4 +41,43 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return customerDtos;
     }
+
+    @Override
+    public CustomerDto searchCustomer(String id) throws Exception {
+        CustomerEntity customerEntity = customerRepo.get(id);
+        CustomerDto customerDto = new CustomerDto(customerEntity.getId(),customerEntity.getNic(),customerEntity.getName(),customerEntity.getAddress(),customerEntity.getDob(),customerEntity.getUserName(),customerEntity.getMobil());
+        return customerDto;
+    }
+
+    @Override
+    public String updateCustomer(CustomerDto customerDto) throws Exception {
+       CustomerEntity customerEntity = new CustomerEntity(customerDto.getId(),
+               customerDto.getNic(),
+               customerDto.getName(),
+               customerDto.getAddress(),
+               customerDto.getDob(),
+               customerDto.getUserName(),
+               customerDto.getMobil());
+
+       Integer id = customerRepo.update(customerEntity);
+
+
+        if(id != -1){
+            return " Update Success";
+        }else {
+            return "Fail Update";
+        }
+    }
+
+    @Override
+    public String delete(String id) throws Exception {
+        Integer ids = customerRepo.delete(id);
+
+        if (ids != -1){
+
+            return "Delete Success";
+        }else {
+            return "Delete Fail";
+        }
+    }
 }
