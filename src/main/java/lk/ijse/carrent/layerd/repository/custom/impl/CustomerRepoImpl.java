@@ -1,5 +1,6 @@
 package lk.ijse.carrent.layerd.repository.custom.impl;
 
+import javafx.scene.control.Alert;
 import lk.ijse.carrent.layerd.entity.CarCategoryEntity;
 import lk.ijse.carrent.layerd.entity.CustomerEntity;
 import lk.ijse.carrent.layerd.repository.CrudUtil;
@@ -47,8 +48,7 @@ public class CustomerRepoImpl implements CustomerRepo {
 
     @Override
     public Integer delete(String s) throws Exception {
-        System.out.println("hhh==="+s);
-        return new CrudUtil().delete("DELETE FROM CustomerEntity WHERE id = '"+ s +"'");
+        return null;
     }
 
     @Override
@@ -60,5 +60,26 @@ public class CustomerRepoImpl implements CustomerRepo {
     @Override
     public Integer addMobile(CustomerEntity customerEntity) throws Exception {
         return null;
+    }
+
+    @Override
+    public Integer deleteCus(CustomerEntity customerEntity) throws Exception {
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Integer id = -1;
+
+
+        try {
+           session.delete(customerEntity);
+           transaction.commit();
+           return id = 10;
+
+
+        }catch (Exception e){
+            transaction.rollback();
+
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            return id = -1;
+        }
     }
 }

@@ -14,5 +14,7 @@ public interface CustomerService extends SuperService {
 
     String updateCustomer(CustomerDto customerDto) throws Exception;
 
-    String delete(String id) throws Exception;
+
+
+    String delete(CustomerDto customerDto) throws Exception;
 }

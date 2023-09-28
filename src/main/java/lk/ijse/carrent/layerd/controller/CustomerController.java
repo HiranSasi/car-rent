@@ -168,6 +168,7 @@ public class CustomerController {
     void btnAddMobileOnAction(ActionEvent event) {
 
         mobiles.add(txtMobile.getText());
+        txtMobile.setText("");
 
     }
 
@@ -179,6 +180,7 @@ public class CustomerController {
             String result = customerService.addCustomer(customerDto);
             mobiles.clear();
             getAllTable();
+            clear();
             new Alert(Alert.AlertType.CONFIRMATION,result).show();
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -189,11 +191,21 @@ public class CustomerController {
 
     @FXML
     void btnDeleteCusOnAction(ActionEvent event) {
+        CustomerDto customerDto = new CustomerDto(txtId.getText(),
+                txtNic.getText(),
+                txtName.getText(),
+                txtAddress.getText(),
+                txtDob.getText(),
+                userName,upMobiles);
+
         try {
-            String result = customerService.delete(txtId.getText());
-            new Alert(Alert.AlertType.CONFIRMATION, result).show();
+            String result =  customerService.delete(customerDto);
+            new Alert(Alert.AlertType.CONFIRMATION,result).show();
+            getAllTable();
+            upMobiles.clear();
+            clear();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            new Alert(Alert.AlertType.CONFIRMATION,e.getMessage()).show();
             throw new RuntimeException(e);
         }
     }
@@ -213,6 +225,7 @@ public class CustomerController {
             upMobiles.clear();
             new Alert(Alert.AlertType.CONFIRMATION,result).show();
             getAllTable();
+            clear();
 
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -238,6 +251,7 @@ public class CustomerController {
                 txtName.setText(customerDto.getName());
                 txtNic.setText(customerDto.getNic());
                 upMobiles.clear();
+                mobiles.clear();
 
                 for (String mobiles : customerDto.getMobil()
                 ) {
@@ -291,10 +305,8 @@ public class CustomerController {
             upMobiles.add(txtUpdateNumber.getText());
         }
 
-        for (String m:upMobiles
-        ) {
-            System.out.print(m+", ");
-        }
+        txtUpdateNumber.setText("");
+
 
 
     }
@@ -340,10 +352,7 @@ public class CustomerController {
             new Alert(Alert.AlertType.INFORMATION, "this number is not listed").show();
         }
 
-        for (String m:upMobiles
-        ) {
-            System.out.print(m+", ");
-        }
+        txtUpdateNumber.setText("");
 
 
 
@@ -374,13 +383,8 @@ public class CustomerController {
         }
 
 
-        for (String m:upMobiles
-             ) {
-            System.out.print(m+", ");
-        }
 
-
-
+        txtUpdateNumber.setText("");
 
     }
 
@@ -400,6 +404,29 @@ public class CustomerController {
         lblUpdateBack.setVisible(false);
         labelUpdateNumber.setVisible(true);
     }
+
+    void clear(){
+
+        txtNic.setText("");
+        txtId.setText("");
+        txtName.setText("");
+        txtDob.setText("");
+        txtAddress.setText("");
+        txtMobile.setText("");
+        txtUpdateNumber.setText("");
+
+    }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+
+        clear();
+        mobiles.clear();
+        upMobiles.clear();
+
+    }
+
+
 
 
 }

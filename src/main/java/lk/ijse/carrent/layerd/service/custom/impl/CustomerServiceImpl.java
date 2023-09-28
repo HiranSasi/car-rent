@@ -69,9 +69,21 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+
+
     @Override
-    public String delete(String id) throws Exception {
-        Integer ids = customerRepo.delete(id);
+    public String delete(CustomerDto customerDto) throws Exception {
+
+        CustomerEntity customerEntity = new CustomerEntity(customerDto.getId(),
+                customerDto.getNic(),
+                customerDto.getName(),
+                customerDto.getAddress(),
+                customerDto.getDob(),
+                customerDto.getUserName(),
+                customerDto.getMobil());
+
+
+        Integer ids = customerRepo.deleteCus(customerEntity);
 
         if (ids != -1){
 
@@ -79,5 +91,8 @@ public class CustomerServiceImpl implements CustomerService {
         }else {
             return "Delete Fail";
         }
+
+
+
     }
 }
