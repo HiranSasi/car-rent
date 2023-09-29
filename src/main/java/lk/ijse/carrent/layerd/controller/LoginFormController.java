@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.carrent.layerd.controller.rent.CarRentController;
 import lk.ijse.carrent.layerd.dto.CarCategoryDto;
 import lk.ijse.carrent.layerd.dto.UserDto;
 import lk.ijse.carrent.layerd.service.ServiceFactory;
@@ -74,11 +75,14 @@ public class LoginFormController {
     CarCategoryController carCategoryController;
     CarAddController carAddController;
 
+    CarRentController carRentController;
+
     CustomerController customerController;
     public void initialize() {
         carCategoryController = new CarCategoryController();
         carAddController = new CarAddController();
         customerController = new CustomerController();
+        carRentController = new CarRentController();
 
         lblCreateAcount.setVisible(false);
         txtEmail.setVisible(false);
@@ -180,6 +184,7 @@ public class LoginFormController {
         carCategoryController.runUserId(txtUserName.getText());
         carAddController.runUserId(txtUserName.getText());
         customerController.runUserId(txtUserName.getText());
+        carRentController.runUserId(txtUserName.getText());
 
 
         try {

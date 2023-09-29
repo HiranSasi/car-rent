@@ -51,4 +51,13 @@ public class MainFormController {
 
     }
 
+    @FXML
+    void btnRentOnAction(ActionEvent event) throws IOException {
+
+        Parent root =FXMLLoader.load(getClass().getResource("/view/car_rent_dashborad.fxml"));
+        this.anchorpaneChanges.getChildren().clear();
+        this.anchorpaneChanges.getChildren().add(root);
+
+    }
+
 }

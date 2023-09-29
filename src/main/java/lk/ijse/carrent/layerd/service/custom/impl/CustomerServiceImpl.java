@@ -46,6 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDto searchCustomer(String id) throws Exception {
         CustomerEntity customerEntity = customerRepo.get(id);
         CustomerDto customerDto = new CustomerDto(customerEntity.getId(),customerEntity.getNic(),customerEntity.getName(),customerEntity.getAddress(),customerEntity.getDob(),customerEntity.getUserName(),customerEntity.getMobil());
+
         return customerDto;
     }
 

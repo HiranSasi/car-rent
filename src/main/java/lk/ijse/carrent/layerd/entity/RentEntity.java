@@ -27,7 +27,7 @@ public class RentEntity {
     private Double advancedPay;
     @Column(name = "refundable_Deposit", nullable = false)
     private Double refundableDeposit;
-    @Column(name = "return_Date", columnDefinition = "Date", nullable = false)
+    @Column(name = "return_Date", columnDefinition = "Date")
     private Date retunDate;
     @Column(name = "total")
     private Double total;
@@ -44,8 +44,15 @@ public class RentEntity {
     @JoinColumn(name = "car_id", nullable = false)
     private CarEntity carEntity;
 
-
-
-
-
+    public RentEntity(String id, Double perDayRent, Date fromDate, Date toDate, Double advancedPay, Double refundableDeposit, String userName, CustomerEntity customerEntity, CarEntity carEntity) {
+        this.id = id;
+        this.perDayRent = perDayRent;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.advancedPay = advancedPay;
+        this.refundableDeposit = refundableDeposit;
+        this.userName = userName;
+        this.customerEntity = customerEntity;
+        this.carEntity = carEntity;
+    }
 }

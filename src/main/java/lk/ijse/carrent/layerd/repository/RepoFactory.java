@@ -1,9 +1,6 @@
 package lk.ijse.carrent.layerd.repository;
 
-import lk.ijse.carrent.layerd.repository.custom.impl.CarCategoryRepoImpl;
-import lk.ijse.carrent.layerd.repository.custom.impl.CarDetailsRepoImpl;
-import lk.ijse.carrent.layerd.repository.custom.impl.CustomerRepoImpl;
-import lk.ijse.carrent.layerd.repository.custom.impl.UserRepoImpl;
+import lk.ijse.carrent.layerd.repository.custom.impl.*;
 
 public class RepoFactory {
     private static RepoFactory repoFactory;
@@ -25,6 +22,8 @@ public class RepoFactory {
                 return new CarDetailsRepoImpl();
             case CUSTOMER:
                 return new CustomerRepoImpl();
+            case RENT:
+                return new RentRepoImpl();
 
             default :
                 return null;
@@ -32,7 +31,7 @@ public class RepoFactory {
     }
 
     public enum RepoType{
-        USER,CARCATEGORY,CARDETAILS,CUSTOMER
+        USER,CARCATEGORY,CARDETAILS,CUSTOMER,RENT
     }
 
 
