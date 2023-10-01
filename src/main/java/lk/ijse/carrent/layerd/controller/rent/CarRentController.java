@@ -3,6 +3,7 @@ package lk.ijse.carrent.layerd.controller.rent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import lk.ijse.carrent.layerd.dto.CarDetailsDto;
 import lk.ijse.carrent.layerd.dto.CustomerDto;
 import lk.ijse.carrent.layerd.dto.RentDto;
@@ -48,6 +49,30 @@ public class CarRentController {
     @FXML
     private TextField txtAdvancedPay;
 
+    @FXML
+    private AnchorPane anchorPaneTotal;
+
+    @FXML
+    private Label lblBalance;
+
+    @FXML
+    private Label lblTotal;
+
+    @FXML
+    private Label lblCarDetails;
+
+    @FXML
+    private Label lblCustomerDetails;
+    @FXML
+    private Label lblNote;
+
+    @FXML
+    private Label lblRentPeriod;
+
+    @FXML
+    private Label lblAdvance;
+
+
 
     CustomerService customerService = (CustomerService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.CUSTOMER);
     CarDetailsSrevice carDetailsSrevice = (CarDetailsSrevice) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.CARDETAILS);
@@ -62,6 +87,10 @@ public class CarRentController {
                 setDisable(empty || date.compareTo(today) < 0);
             }
         });
+
+        lblDetailsCust.setVisible(false);
+        lblDetailsCar.setVisible(false);
+        anchorPaneTotal.setVisible(false);
     }
 
     public void runUserId(String id){
@@ -76,7 +105,11 @@ public class CarRentController {
         try {
             CustomerDto customerDto = customerService.searchCustomer(txtCustId.getText());
 
-                lblDetailsCust.setText(customerDto.getName()+","+customerDto.getNic()+", "+customerDto.getAddress());
+                lblDetailsCust.setText(" "+customerDto.getName()+","+customerDto.getNic()+", "+customerDto.getAddress());
+
+                lblCustomerDetails.setText("CUSTOMER = "+customerDto.getName()+","+customerDto.getNic()+","+customerDto.getAddress());
+                lblCustomerDetails.setVisible(false);
+                lblDetailsCust.setVisible(true);
 
         } catch (Exception e) {
             new Alert(Alert.AlertType.INFORMATION,"Customer Id is not valid please try again").show();
@@ -91,8 +124,12 @@ public class CarRentController {
 
         try {
             CarDetailsDto carDetailsDto = carDetailsSrevice.search(txtCarId.getText());
-            lblDetailsCar.setText(carDetailsDto.getCarCategoryName()+", "+carDetailsDto.getBrand()+", "+carDetailsDto.getModel()+", "+carDetailsDto.getVehicleNumber());
+            lblDetailsCar.setText(" "+carDetailsDto.getCarCategoryName()+", "+carDetailsDto.getBrand()+", "+carDetailsDto.getModel()+", "+carDetailsDto.getVehicleNumber());
             txtPricePerDay.setText(String.valueOf(carDetailsDto.getPricePerDay()));
+            lblCarDetails.setText("CAR = "+carDetailsDto.getBrand()+","+carDetailsDto.getModel()+","+carDetailsDto.getVehicleNumber()+"                                                 "+"PricePerDay = "+carDetailsDto.getPricePerDay());
+            lblCarDetails.setVisible(false);
+            lblDetailsCar.setVisible(true);
+
         } catch (Exception e) {
             new Alert(Alert.AlertType.INFORMATION,"Car Id is not valid please try again").show();
             txtPricePerDay.setText("");
@@ -118,6 +155,11 @@ public class CarRentController {
 
         try {
             String result = rentService.addRent(rentDto);
+            if (result.equals("Advance pay is Not Valid") || result.equals("Fail Added")){}else {
+                totalAndBalance(datePickerFromDate.getValue(), datePickerToDate.getValue(), Double.parseDouble(txtPricePerDay.getText()), Double.parseDouble(txtAdvancedPay.getText()));
+                lblAdvance.setText("ADVANCE = RS. " + rentDto.getAdvancedPay() + "                                                    " + "DEPOSIT = RS. " + rentDto.getRefundableDeposit());
+            }
+
             new Alert(Alert.AlertType.CONFIRMATION,result).show();
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -148,6 +190,47 @@ public class CarRentController {
 
 
 
+
+    }
+
+    void totalAndBalance(LocalDate from,LocalDate to,Double perDayRen,Double advance){
+        RentDto rentDto = new RentDto(perDayRen,from,to,advance);
+
+        try {
+            rentDto = rentService.totalAndBalance(rentDto);
+            lblRentPeriod.setText("RENT PERIOD =    FROM - "+from+"            "+"TO - "+to);
+            lblNote.setText("NOTE - This may vary depending on the day the vehicle is returned");
+            lblTotal.setText("TOTAL = RS "+rentDto.getTotal());
+            lblBalance.setText("Balance = RS "+rentDto.getBalance());
+            lblCarDetails.setVisible(true);
+            lblCustomerDetails.setVisible(true);
+            anchorPaneTotal.setVisible(true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    void clear(){
+        txtRentId.setText("");
+        txtCustId.setText("");
+        txtCarId.setText("");
+        txtPricePerDay.setText("");
+        txtDeposit.setText("");
+        txtAdvancedPay.setText("");
+
+        datePickerFromDate.setValue(null);
+        datePickerToDate.setValue(null);
+        anchorPaneTotal.setVisible(false);
+        lblDetailsCar.setVisible(false);
+        lblDetailsCust.setVisible(false);
+
+    }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clear();
 
     }
 }

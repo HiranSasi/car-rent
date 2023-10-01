@@ -24,10 +24,22 @@
       <TextField fx:id="txtCarId" layoutX="106.0" layoutY="116.0" promptText="Car Id" />
       <TextField fx:id="txtCustId" layoutX="106.0" layoutY="77.0" promptText="Cust Id" />
       <TextField fx:id="txtPricePerDay" layoutX="106.0" layoutY="161.0" promptText="Price Per Day" />
-      <Button layoutX="268.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnOnSearchCust" prefHeight="25.0" prefWidth="54.0" text="Search" />
-      <Button layoutX="268.0" layoutY="116.0" mnemonicParsing="false" onAction="#btnSearchCar" prefHeight="25.0" prefWidth="54.0" text="Search" />
-      <Label fx:id="lblDetailsCust" layoutX="328.0" layoutY="73.0" prefHeight="25.0" prefWidth="325.0" text="Label" />
-      <Label fx:id="lblDetailsCar" layoutX="328.0" layoutY="116.0" prefHeight="25.0" prefWidth="325.0" text="Label" />
+      <Button layoutX="268.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnOnSearchCust" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: #222f3e;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="268.0" layoutY="116.0" mnemonicParsing="false" onAction="#btnSearchCar" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: #222f3e;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Label fx:id="lblDetailsCust" layoutX="328.0" layoutY="73.0" prefHeight="25.0" prefWidth="325.0" style="-fx-background-color: #778beb;" textFill="WHITE" />
+      <Label fx:id="lblDetailsCar" layoutX="328.0" layoutY="116.0" prefHeight="25.0" prefWidth="325.0" style="-fx-background-color: #778beb;" textFill="WHITE" />
       <Label layoutX="14.0" layoutY="165.0" prefHeight="17.0" prefWidth="92.0" text="Price Per Day" />
       <Label layoutX="365.0" layoutY="165.0" prefHeight="17.0" prefWidth="92.0" text="Deposit" />
       <TextField fx:id="txtDeposit" layoutX="457.0" layoutY="161.0" promptText="Deposit" />
@@ -62,6 +74,30 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </Button>
+      <AnchorPane fx:id="anchorPaneTotal" layoutX="14.0" layoutY="337.0" prefHeight="143.0" prefWidth="570.0" style="-fx-background-color: #778beb;">
+         <children>
+            <Label fx:id="lblTotal" layoutX="14.0" layoutY="57.0" prefHeight="17.0" prefWidth="545.0" textFill="#fffdfd" />
+            <Label fx:id="lblBalance" layoutX="14.0" layoutY="92.0" prefHeight="17.0" prefWidth="545.0" textFill="#fcf9f9">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblAdvance" layoutX="14.0" layoutY="75.0" prefHeight="17.0" prefWidth="545.0" textFill="#fffdfd" />
+            <Label fx:id="lblCarDetails" layoutX="14.0" layoutY="23.0" prefHeight="17.0" prefWidth="545.0" textFill="#fffdfd" />
+            <Label fx:id="lblCustomerDetails" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="545.0" textFill="#fffdfd" />
+            <Label fx:id="lblRentPeriod" layoutX="14.0" layoutY="40.0" prefHeight="17.0" prefWidth="545.0" textFill="#fffdfd" />
+            <Label fx:id="lblNote" layoutX="14.0" layoutY="119.0" prefHeight="19.0" prefWidth="545.0" textFill="#fcf9f9">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button layoutX="457.0" layoutY="302.0" mnemonicParsing="false" onAction="#btnClearOnAction" style="-fx-background-color: #222f3e;" text="Clear" textFill="#f2f0f0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
       </Button>
    </children>
 </AnchorPane>

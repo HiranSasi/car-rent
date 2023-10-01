@@ -6,4 +6,6 @@ import lk.ijse.carrent.layerd.service.SuperService;
 public interface RentService extends SuperService {
 
     String addRent(RentDto rentDto) throws Exception;
+
+    RentDto totalAndBalance(RentDto rentDto) throws Exception;
 }

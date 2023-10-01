@@ -46,4 +46,16 @@ public class RentDto {
         this.custId = custId;
         this.carId = carId;
     }
+
+    public RentDto(Double perDayRent, LocalDate fromDate, LocalDate toDate, Double advancedPay) {
+        this.perDayRent = perDayRent;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.advancedPay = advancedPay;
+    }
+
+    public RentDto(Double total, Double balance) {
+        this.total = total;
+        this.balance = balance;
+    }
 }
