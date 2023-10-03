@@ -14,7 +14,10 @@ import lk.ijse.carrent.layerd.service.custom.RentService;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RentServiceImpl implements RentService {
     RentRepo rentRepo = (RentRepo) RepoFactory.getInstance().getRepo(RepoFactory.RepoType.RENT);
@@ -80,4 +83,127 @@ public class RentServiceImpl implements RentService {
         RentDto rentDto1 = new RentDto(total,balance);
         return rentDto1;
     }
+
+    @Override
+    public List<RentDto> getAll() throws Exception {
+        List<RentEntity> rentEntities = rentRepo.getAll();
+        List<RentDto> rentDtos = new ArrayList<>();
+
+        LocalDate dates = null;
+
+
+
+        for (RentEntity entity:rentEntities
+             ) {
+        if(entity.getRetunDate() != null){
+            rentDtos.add(new RentDto(entity.getId(),
+                    entity.getPerDayRent(),
+                    entity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                            entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                            entity.getAdvancedPay(),
+                            entity.getRefundableDeposit(),
+                            entity.getRetunDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                            entity.getUserName(),
+                            entity.getCustomerEntity().getId(),
+                            entity.getCarEntity().getId(),entity.getCarEntity().getVehicleNumber())
+                    );}else {
+            rentDtos.add(new RentDto(entity.getId(),
+                    entity.getPerDayRent(),
+                    entity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                    entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                    entity.getAdvancedPay(),
+                    entity.getRefundableDeposit(),
+                    dates,
+                    entity.getUserName(),
+                    entity.getCustomerEntity().getId(),
+                    entity.getCarEntity().getId(),entity.getCarEntity().getVehicleNumber()));
+        }
+
+        }
+        return rentDtos;
+    }
+
+    @Override
+    public String addReturnDate(RentDto rentDto) throws Exception {
+        RentEntity rentEntity = rentRepo.get(rentDto.getId());
+
+        LocalDate from = rentEntity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate returnDate= rentDto.getRetunDate();
+        Double perDayRent = rentEntity.getPerDayRent();
+        Double advance = rentEntity.getAdvancedPay();
+
+        Long dayDiff = ChronoUnit.DAYS.between(from,returnDate);
+
+
+
+        Integer dayDifferent = Math.toIntExact(dayDiff)+1;
+
+        Double total = perDayRent*dayDifferent;
+        Double balance = total-advance;
+        if(rentEntity.getRetunDate() == null){
+        RentEntity rent = new RentEntity(rentDto.getId(),Date.valueOf(rentDto.getRetunDate()),total,balance);
+
+        Integer id = rentRepo.updateReturnDate(rent);
+        System.out.println(total+balance);
+        if (id != -1) {
+
+            return "Successfully Update";
+        } else {
+            return "Fail Update";
+        }}else {
+            return "Cant Update return Date";
+        }
+    }
+
+    @Override
+    public RentDto getRentData(String id) throws Exception {
+        RentEntity entity = rentRepo.get(id);
+
+        if (entity.getRetunDate() != null) {
+            LocalDate fromDate = entity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate toDate = entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate returnDate = entity.getRetunDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            Long rentDayDiff = ChronoUnit.DAYS.between(fromDate, toDate);
+            Long returnDayDiff = ChronoUnit.DAYS.between(toDate, returnDate);
+
+
+            Integer dayDifferent = Math.toIntExact(rentDayDiff) + 1;
+            Integer dayReturnDiff = Math.toIntExact(returnDayDiff);
+
+            Double chargeForRentPeriod = entity.getPerDayRent() * dayDifferent;
+            Double chargeForExtra = entity.getPerDayRent() * dayReturnDiff;
+
+
+            RentDto dto = new RentDto(entity.getId(),
+                    entity.getPerDayRent(),
+                    fromDate,
+                    toDate,
+                    entity.getAdvancedPay(),
+                    entity.getRefundableDeposit(),
+                    returnDate,
+                    entity.getTotal(),
+                    entity.getBalance(),
+                    entity.getUserName(),
+                    entity.getCustomerEntity().getId(),
+                    chargeForRentPeriod,
+                    chargeForExtra,
+                    entity.getCarEntity().getId(),
+                    entity.getCarEntity().getVehicleNumber(),
+                    entity.getCustomerEntity().getName(),
+                    entity.getCustomerEntity().getNic(),
+                    entity.getCarEntity().getBrand(),
+                    entity.getCarEntity().getModel()
+            );
+
+            return dto;
+        }else {
+            return null;
+        }
+
+
+
+    }
+
+
 }

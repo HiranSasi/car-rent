@@ -33,7 +33,22 @@ public class RentDto {
 
     private String custId;
 
+    private Double chargingForRentPeriod;
+
+    private Double chargingForExtra;
+
     private String carId;
+
+    private String vehicleNumber;
+
+    private String custName;
+
+    private String custNic;
+
+    private String carBrand;
+
+    private String carModel;
+
 
     public RentDto(String id, Double perDayRent, LocalDate fromDate, LocalDate toDate, Double advancedPay, Double refundableDeposit, String userName, String custId, String carId) {
         this.id = id;
@@ -58,4 +73,25 @@ public class RentDto {
         this.total = total;
         this.balance = balance;
     }
+
+    public RentDto(String id, Double perDayRent, LocalDate fromDate, LocalDate toDate, Double advancedPay, Double refundableDeposit, LocalDate retunDate, String userName, String custId, String carId,String vehicleNumber) {
+        this.id = id;
+        this.perDayRent = perDayRent;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.advancedPay = advancedPay;
+        this.refundableDeposit = refundableDeposit;
+        this.retunDate = retunDate;
+        this.userName = userName;
+        this.custId = custId;
+        this.carId = carId;
+        this.vehicleNumber = vehicleNumber;
+    }
+
+    public RentDto(String id, LocalDate retunDate) {
+        this.id = id;
+        this.retunDate = retunDate;
+    }
+
+
 }
