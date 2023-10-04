@@ -86,7 +86,14 @@ public class CarRentController {
             public void updateItem(LocalDate date,boolean empty){
                 super.updateItem(date,empty);
                 LocalDate today = LocalDate.now();
-                setDisable(empty || date.compareTo(today) < 0);
+                LocalDate lastDate = today.plusDays(10);
+                if(date.isBefore(today)|| date.isAfter(lastDate)){
+                    setDisable(true);
+
+                }else {
+                    setDisable(false);
+                    setStyle("-fx-background-color:#a29bfe;");
+                }
             }
         });
 
@@ -145,27 +152,34 @@ public class CarRentController {
     @FXML
     void btnAddOnAction(ActionEvent event) {
 
-        RentDto rentDto = new RentDto(txtRentId.getText(),
-                Double.parseDouble(txtPricePerDay.getText()),
-                datePickerFromDate.getValue(),
-                datePickerToDate.getValue(),
-                Double.parseDouble(txtAdvancedPay.getText()),
-                Double.parseDouble(txtDeposit.getText()),
-                userName,
-                txtCustId.getText()
-               ,txtCarId.getText() );
-
         try {
-            String result = rentService.addRent(rentDto);
-            if (result.equals("Advance pay is Not Valid") || result.equals("Fail Added")){}else {
-                totalAndBalance(datePickerFromDate.getValue(), datePickerToDate.getValue(), Double.parseDouble(txtPricePerDay.getText()), Double.parseDouble(txtAdvancedPay.getText()));
-                lblAdvance.setText("ADVANCE = RS. " + rentDto.getAdvancedPay() + "                                                    " + "DEPOSIT = RS. " + rentDto.getRefundableDeposit());
-            }
 
-            new Alert(Alert.AlertType.CONFIRMATION,result).show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
-            throw new RuntimeException(e);
+
+            RentDto rentDto = new RentDto(txtRentId.getText(),
+                    Double.parseDouble(txtPricePerDay.getText()),
+                    datePickerFromDate.getValue(),
+                    datePickerToDate.getValue(),
+                    Double.parseDouble(txtAdvancedPay.getText()),
+                    Double.parseDouble(txtDeposit.getText()),
+                    userName,
+                    txtCustId.getText()
+                    , txtCarId.getText());
+
+            try {
+                String result = rentService.addRent(rentDto);
+                if (result.equals("Advance pay is Not Valid") || result.equals("Fail Added") || result.equals("This car is out ") || result.equals("Customer is not Available thi time period")) {
+                } else {
+                    totalAndBalance(datePickerFromDate.getValue(), datePickerToDate.getValue(), Double.parseDouble(txtPricePerDay.getText()), Double.parseDouble(txtAdvancedPay.getText()));
+                    lblAdvance.setText("ADVANCE = RS. " + rentDto.getAdvancedPay() + "                                                    " + "DEPOSIT = RS. " + rentDto.getRefundableDeposit());
+                }
+
+                new Alert(Alert.AlertType.CONFIRMATION, result).show();
+            } catch (Exception e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                throw new RuntimeException(e);
+            }
+        }catch (Exception ex){
+            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
         }
 
     }

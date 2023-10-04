@@ -160,6 +160,7 @@ public class CarReturnController {
         try {
             String result = rentService.addReturnDate(rentDto);
             new Alert(Alert.AlertType.CONFIRMATION,result).show();
+            getAll();
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             throw new RuntimeException(e);

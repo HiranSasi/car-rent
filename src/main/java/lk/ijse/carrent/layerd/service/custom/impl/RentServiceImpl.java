@@ -29,6 +29,58 @@ public class RentServiceImpl implements RentService {
     @Override
     public String addRent(RentDto rentDto) throws Exception {
 
+        String rentId = rentRepo.carRentId(rentDto.getCarId());
+        Boolean isRightCar = true;
+        if (rentId == null){
+            isRightCar =true;
+        }else {
+
+            java.util.Date retunDates = rentRepo.carReturnNull(rentDto.getCarId());
+        if(retunDates == null){
+
+           isRightCar = false;
+
+        }else  if (retunDates != null){
+            LocalDate returnDate = rentRepo.carReturnDate(rentDto.getCarId()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+           if (rentDto.getFromDate().isAfter(returnDate))
+            {
+                isRightCar = true;
+            }else {
+                isRightCar = false;
+            }}}
+
+        String custId = rentRepo.custRentId(rentDto.getCustId());
+        Boolean isRightCustomer = true;
+        if (custId == null){
+            isRightCustomer = true;
+        }else {
+            java.util.Date retunDates = rentRepo.custReturnNull(rentDto.getCustId());
+
+            if (retunDates == null){
+
+                isRightCustomer = false;
+            }else if (retunDates != null){
+
+                LocalDate returnDate = rentRepo.custReturnDate(rentDto.getCustId()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                if (rentDto.getFromDate().isAfter(returnDate))
+                {
+                    isRightCustomer = true;
+                }else {
+                    isRightCustomer = false;}
+
+            }
+
+
+        }
+
+
+
+
+
+        if (isRightCustomer == true){
+
+    if(isRightCar == true ){
         LocalDate from = rentDto.getFromDate();
         LocalDate to = rentDto.getToDate();
         Double perDayRent = rentDto.getPerDayRent();
@@ -60,6 +112,11 @@ public class RentServiceImpl implements RentService {
         }else {
             return "Advance pay is Not Valid";
 
+        }}else {
+
+        return "This car is out ";
+        }}else {
+            return "Customer is not Available thi time period";
         }
 
     }
