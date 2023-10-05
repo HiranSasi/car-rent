@@ -25,12 +25,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="14.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/icons8-car-rental-100.png" />
                </image>
             </ImageView>
-            <Button layoutX="551.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="178.0" style="-fx-background-color: #34495e;" text="Car-Ren Details" textFill="#f8f7f7">
+            <Button layoutX="524.0" mnemonicParsing="false" onAction="#btnCarRentDetailsOnAction" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #34495e;" text="      Car-Rent Details" textFill="#f8f7f7">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="39.0" fitWidth="31.0" layoutX="542.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="533.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/icons8-car-rental-64.png" />
                </image>

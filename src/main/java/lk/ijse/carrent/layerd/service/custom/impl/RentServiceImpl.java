@@ -116,7 +116,7 @@ public class RentServiceImpl implements RentService {
 
         return "This car is out ";
         }}else {
-            return "Customer is not Available thi time period";
+            return "Customer is not Available this time period";
         }
 
     }
@@ -259,6 +259,36 @@ public class RentServiceImpl implements RentService {
         }
 
 
+
+    }
+
+    @Override
+    public List<RentDto> getList(String id) throws Exception {
+        List<RentEntity> rentEntities = rentRepo.carRentDetails(id);
+        List<RentDto> rentDtos = new ArrayList<>();
+
+        for (RentEntity entity:rentEntities
+             ) {
+            if (entity.getRetunDate() != null) {
+                rentDtos.add(new RentDto(entity.getId(), entity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        entity.getRetunDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        entity.getCustomerEntity().getId(),
+                        entity.getCarEntity().getVehicleNumber(),
+                        entity.getCarEntity().getBrand(),
+                        entity.getCarEntity().getModel()));
+            }else {
+                rentDtos.add(new RentDto(entity.getId(), entity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        null,
+                        entity.getCustomerEntity().getId() ,
+                        entity.getCarEntity().getVehicleNumber(),
+                        entity.getCarEntity().getBrand(),
+                        entity.getCarEntity().getModel()));
+            }
+        }
+
+        return rentDtos;
 
     }
 

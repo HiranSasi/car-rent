@@ -29,4 +29,13 @@ public class RentDashboardController {
     }
 
 
+    @FXML
+    void btnCarRentDetailsOnAction(ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/View/car_return_details.fxml"));
+        this.anchorPaneChange  .getChildren().clear();
+        this.anchorPaneChange.getChildren().add(root);
+    }
+
+
 }

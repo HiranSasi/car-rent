@@ -93,5 +93,14 @@ public class RentDto {
         this.retunDate = retunDate;
     }
 
-
+    public RentDto(String id, LocalDate fromDate, LocalDate toDate, LocalDate retunDate, String custId, String vehicleNumber, String carBrand, String carModel) {
+        this.id = id;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.retunDate = retunDate;
+        this.custId = custId;
+        this.vehicleNumber = vehicleNumber;
+        this.carBrand = carBrand;
+        this.carModel = carModel;
+    }
 }

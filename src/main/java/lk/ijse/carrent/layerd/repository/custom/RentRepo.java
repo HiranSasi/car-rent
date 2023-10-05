@@ -4,6 +4,7 @@ import lk.ijse.carrent.layerd.entity.RentEntity;
 import lk.ijse.carrent.layerd.repository.CrudRepo;
 
 import java.util.Date;
+import java.util.List;
 
 public interface RentRepo extends CrudRepo<RentEntity,String> {
 
@@ -18,4 +19,6 @@ public interface RentRepo extends CrudRepo<RentEntity,String> {
     Date custReturnNull(String id) throws Exception;
 
     Date custReturnDate(String id) throws Exception;
+
+    List<RentEntity> carRentDetails(String id) throws Exception;
 }

@@ -62,4 +62,13 @@ public class RentEntity {
         this.total = total;
         this.balance = balance;
     }
+
+    public RentEntity(String id, Date fromDate, Date toDate, Date retunDate, CustomerEntity customerEntity, CarEntity carEntity) {
+        this.id = id;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.retunDate = retunDate;
+        this.customerEntity = customerEntity;
+        this.carEntity = carEntity;
+    }
 }
