@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.carrent.layerd.dto.RentDto;
 import lk.ijse.carrent.layerd.dto.tm.CustomerRentDetailsTM;
+import lk.ijse.carrent.layerd.dto.tm.LateReturnCarTm;
 import lk.ijse.carrent.layerd.dto.tm.RentCarDetailsTm;
 import lk.ijse.carrent.layerd.dto.tm.RentDetailsTm;
 import lk.ijse.carrent.layerd.service.ServiceFactory;
@@ -79,6 +80,32 @@ public class CarRentDetailsController {
     @FXML
     private TableView<CustomerRentDetailsTM> tblCustomer;
 
+    @FXML
+    private TableColumn<?, ?> colCarId3;
+
+
+    @FXML
+    private TableColumn<?, ?> colCustomerId3;
+
+    @FXML
+    private TableColumn<?, ?> colFromDate3;
+
+    @FXML
+    private TableColumn<?, ?> colLateDays3;
+
+    @FXML
+    private TableColumn<?, ?> colRentId3;
+
+    @FXML
+    private TableColumn<?, ?> colReturnDate3;
+
+
+    @FXML
+    private TableColumn<?, ?> colToDate3;
+
+    @FXML
+    private TableView<LateReturnCarTm> tblLateReturn;
+
 
 
 
@@ -94,11 +121,13 @@ public class CarRentDetailsController {
 
     @FXML
     void lblCarRentDetailsOnAction(MouseEvent event) {
+        txtCarId.setText("");
         anchorPaneSearch.setVisible(true);
         txtCustomerId.setVisible(false);
         txtCarId.setVisible(true);
         lblSearchDetails.setVisible(false);
         anchorPaneTbl.setVisible(false);
+
 
     }
 
@@ -112,16 +141,24 @@ public class CarRentDetailsController {
         colFromDate2.setCellValueFactory(new PropertyValueFactory<>("fromDate1"));
         colToDate2.setCellValueFactory(new PropertyValueFactory<>("toDate1"));
         colReturnDate2.setCellValueFactory(new PropertyValueFactory<>("returnDate1"));
-        colCarId.setCellValueFactory(new PropertyValueFactory<>("carId1"));
+        colCarId3.setCellValueFactory(new PropertyValueFactory<>("carId3"));
+        colRentId3.setCellValueFactory(new PropertyValueFactory<>("id3"));
+        colCustomerId3.setCellValueFactory(new PropertyValueFactory<>("custId3"));
+        colFromDate3.setCellValueFactory(new PropertyValueFactory<>("fromDate3"));
+        colToDate3.setCellValueFactory(new PropertyValueFactory<>("toDate3"));
+        colReturnDate3.setCellValueFactory(new PropertyValueFactory<>("retunDate3"));
+        colLateDays3.setCellValueFactory(new PropertyValueFactory<>("lateDays3"));
 
     }
 
     @FXML
     void btnOnCarIdAction(ActionEvent event) {
+        tblLateReturn.setVisible(false);
         lblSearchDetails.setVisible(true);
         getPane();
         tblCustomer.setVisible(false);
         tblCar.setVisible(true);
+
 
         lblSearchDetails.setText("");
 
@@ -163,7 +200,7 @@ public class CarRentDetailsController {
 
 
     }
-    void BackPane(){
+    void backPane(){
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),anchorPaneTbl);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
@@ -177,6 +214,7 @@ public class CarRentDetailsController {
         lblSearchDetails.setVisible(true);
         lblSearchDetails.setText("");
         getPane();
+        tblLateReturn.setVisible(false);
         tblCar.setVisible(false);
         tblCustomer.setVisible(true);
         tblCustomer.setItems(null);
@@ -223,6 +261,7 @@ public class CarRentDetailsController {
 
     @FXML
     void lblCustomerRentDetailsOnAction(MouseEvent event) {
+        txtCustomerId.setText("");
         anchorPaneSearch.setVisible(true);
         txtCarId.setVisible(false);
         lblSearchDetails.setVisible(false);
@@ -230,6 +269,47 @@ public class CarRentDetailsController {
         anchorPaneTbl.setVisible(false);
 
     }
+
+    void getLateReturnList(){
+
+        try {
+            List<RentDto> rentDtos = rentService.getLateReturnList();
+            setLateReturnValue(rentDtos);
+            getPane();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void setLateReturnValue(List<RentDto> rentDtos) {
+        ObservableList<LateReturnCarTm> obl = FXCollections.observableArrayList();
+        for (RentDto dto:rentDtos
+             ) {
+            obl.add(new LateReturnCarTm(dto.getId(), dto.getFromDate(),dto.getToDate(),dto.getRetunDate().toString(),dto.getCustId(), dto.getCarId(), dto.getDays()));
+        }
+        tblLateReturn.setItems(obl);
+    }
+
+    @FXML
+    void lblLateDateOnAction(MouseEvent event) {
+        anchorPaneSearch.setVisible(false);
+        tblCustomer.setVisible(false);
+        tblCar.setVisible(false);
+        tblLateReturn.setVisible(true);
+        getLateReturnList();
+
+
+    }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        anchorPaneSearch.setVisible(false);
+        backPane();
+
+    }
+
 
 
 }

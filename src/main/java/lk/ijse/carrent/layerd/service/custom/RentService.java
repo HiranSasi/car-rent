@@ -20,4 +20,6 @@ public interface RentService extends SuperService {
     List<RentDto> getList(String id) throws Exception;
 
     List<RentDto> getCustomerRentDetailsList(String id) throws Exception;
+
+    List<RentDto> getLateReturnList() throws Exception;
 }

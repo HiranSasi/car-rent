@@ -321,5 +321,32 @@ public class RentServiceImpl implements RentService {
         return rentDtos;
     }
 
+    @Override
+    public List<RentDto> getLateReturnList() throws Exception {
+        List<RentEntity> rentEntities = rentRepo.getLateReturnList();
+        List<RentDto> rentDtos = new ArrayList<>();
+
+        for (RentEntity entity:rentEntities
+             ) {
+
+
+            Long dayDiff = ChronoUnit.DAYS.between(entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                    entity.getRetunDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+
+
+            Integer dayDifferent = Math.toIntExact(dayDiff);
+            rentDtos.add(new RentDto(entity.getId(),
+                    entity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                    entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                    entity.getRetunDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                    entity.getCustomerEntity().getId(),
+                    entity.getCarEntity().getId(),
+                    dayDifferent
+                    ));
+        }
+        return rentDtos;
+    }
+
 
 }

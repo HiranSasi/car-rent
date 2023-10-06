@@ -306,4 +306,28 @@ public class RentRepoImpl implements RentRepo {
 
         return rentEntities;
     }
+
+    @Override
+    public List<RentEntity> getLateReturnList() throws Exception {
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        String hql = "from RentEntity r where r.retunDate>r.toDate";
+        List<RentEntity> rentEntities = new ArrayList<>();
+        try {
+            session.beginTransaction();
+            Query query = session.createQuery(hql);
+
+            rentEntities = query.list();
+
+
+
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            return rentEntities;
+        }
+
+        return rentEntities;
+
+    }
 }

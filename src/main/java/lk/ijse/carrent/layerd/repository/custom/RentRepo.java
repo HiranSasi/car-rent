@@ -24,5 +24,7 @@ public interface RentRepo extends CrudRepo<RentEntity,String> {
 
     List<RentEntity> customerRentDetails(String id) throws Exception;
 
+    List<RentEntity> getLateReturnList() throws Exception;
+
 
 }

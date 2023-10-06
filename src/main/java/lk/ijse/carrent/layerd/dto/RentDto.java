@@ -49,6 +49,8 @@ public class RentDto {
 
     private String carModel;
 
+    private Integer days;
+
 
     public RentDto(String id, Double perDayRent, LocalDate fromDate, LocalDate toDate, Double advancedPay, Double refundableDeposit, String userName, String custId, String carId) {
         this.id = id;
@@ -112,5 +114,37 @@ public class RentDto {
         this.carId = carId;
         this.custName = custName;
         this.custNic = custNic;
+    }
+
+    public RentDto(String id, LocalDate fromDate, LocalDate toDate, LocalDate retunDate, String custId, String carId, Integer days) {
+        this.id = id;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.retunDate = retunDate;
+        this.custId = custId;
+        this.carId = carId;
+        this.days = days;
+    }
+
+    public RentDto(String id, Double perDayRent, LocalDate fromDate, LocalDate toDate, Double advancedPay, Double refundableDeposit, LocalDate retunDate, Double total, Double balance, String userName, String custId, Double chargingForRentPeriod, Double chargingForExtra, String carId, String vehicleNumber, String custName, String custNic, String carBrand, String carModel) {
+        this.id = id;
+        this.perDayRent = perDayRent;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.advancedPay = advancedPay;
+        this.refundableDeposit = refundableDeposit;
+        this.retunDate = retunDate;
+        this.total = total;
+        this.balance = balance;
+        this.userName = userName;
+        this.custId = custId;
+        this.chargingForRentPeriod = chargingForRentPeriod;
+        this.chargingForExtra = chargingForExtra;
+        this.carId = carId;
+        this.vehicleNumber = vehicleNumber;
+        this.custName = custName;
+        this.custNic = custNic;
+        this.carBrand = carBrand;
+        this.carModel = carModel;
     }
 }
