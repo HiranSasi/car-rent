@@ -263,7 +263,7 @@ public class RentRepoImpl implements RentRepo {
 
     @Override
     public List<RentEntity> carRentDetails(String id) throws Exception {
-        System.out.println("hhh=="+id);
+
         Session session = SessionFactoryConfiguration.getInstance().getSession();
         String hql = "from RentEntity r where r.carEntity.id=:id";
         List<RentEntity> rentEntities = new ArrayList<>();
@@ -281,6 +281,29 @@ public class RentRepoImpl implements RentRepo {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             return rentEntities;
         }
+        return rentEntities;
+    }
+
+    @Override
+    public List<RentEntity> customerRentDetails(String id) throws Exception {
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        String hql = "from RentEntity r where r.customerEntity.id=:id";
+        List<RentEntity> rentEntities = new ArrayList<>();
+        try {
+            session.beginTransaction();
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            rentEntities = query.list();
+
+
+
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            return rentEntities;
+        }
+
         return rentEntities;
     }
 }

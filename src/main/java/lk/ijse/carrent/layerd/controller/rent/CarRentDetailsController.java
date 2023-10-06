@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.carrent.layerd.dto.RentDto;
+import lk.ijse.carrent.layerd.dto.tm.CustomerRentDetailsTM;
 import lk.ijse.carrent.layerd.dto.tm.RentCarDetailsTm;
 import lk.ijse.carrent.layerd.dto.tm.RentDetailsTm;
 import lk.ijse.carrent.layerd.service.ServiceFactory;
@@ -60,6 +61,24 @@ public class CarRentDetailsController {
     @FXML
     private Label lblCustomerRentDetails;
 
+    @FXML
+    private TableColumn<?, ?> colCarId;
+
+    @FXML
+    private TableColumn<?, ?> colFromDate2;
+
+    @FXML
+    private TableColumn<?, ?> colRentId2;
+
+    @FXML
+    private TableColumn<?, ?> colReturnDate2;
+
+    @FXML
+    private TableColumn<?, ?> colToDate2;
+
+    @FXML
+    private TableView<CustomerRentDetailsTM> tblCustomer;
+
 
 
 
@@ -69,12 +88,17 @@ public class CarRentDetailsController {
         anchorPaneSearch.setVisible(false);
         anchorPaneTbl.setVisible(false);
         setValueFactory();
+
+
     }
 
     @FXML
     void lblCarRentDetailsOnAction(MouseEvent event) {
         anchorPaneSearch.setVisible(true);
+        txtCustomerId.setVisible(false);
+        txtCarId.setVisible(true);
         lblSearchDetails.setVisible(false);
+        anchorPaneTbl.setVisible(false);
 
     }
 
@@ -84,6 +108,11 @@ public class CarRentDetailsController {
         colFromDate.setCellValueFactory(new PropertyValueFactory<>("fromDate"));
         colToDate.setCellValueFactory(new PropertyValueFactory<>("toDate"));
         colReturnDate.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
+        colRentId2.setCellValueFactory(new PropertyValueFactory<>("id1"));
+        colFromDate2.setCellValueFactory(new PropertyValueFactory<>("fromDate1"));
+        colToDate2.setCellValueFactory(new PropertyValueFactory<>("toDate1"));
+        colReturnDate2.setCellValueFactory(new PropertyValueFactory<>("returnDate1"));
+        colCarId.setCellValueFactory(new PropertyValueFactory<>("carId1"));
 
     }
 
@@ -91,6 +120,8 @@ public class CarRentDetailsController {
     void btnOnCarIdAction(ActionEvent event) {
         lblSearchDetails.setVisible(true);
         getPane();
+        tblCustomer.setVisible(false);
+        tblCar.setVisible(true);
 
         lblSearchDetails.setText("");
 
@@ -143,11 +174,62 @@ public class CarRentDetailsController {
 
     @FXML
     void btnCustRentDetailsOnAction(ActionEvent event) {
+        lblSearchDetails.setVisible(true);
+        lblSearchDetails.setText("");
+        getPane();
+        tblCar.setVisible(false);
+        tblCustomer.setVisible(true);
+        tblCustomer.setItems(null);
 
-        System.out.println(txtCustomerId.getText());
+        try {
+            List<RentDto> rentDtos = rentService.getCustomerRentDetailsList(txtCustomerId.getText());
+            setCustomerDetails(rentDtos);
+            for (RentDto dto:rentDtos
+                 ) {
+                lblSearchDetails.setText("     "+dto.getCustName()+"   "+dto.getCustNic());
+                break;
+            }
+
+            setCustomerDetails(rentDtos);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+
+            throw new RuntimeException(e);
+        }
 
     }
 
+    private void setCustomerDetails(List<RentDto> rentDtos) {
+        ObservableList<CustomerRentDetailsTM> obl = FXCollections.observableArrayList();
+        for (RentDto dto:rentDtos
+             ) {
+            if (dto.getRetunDate() != null) {
+                obl.add(new CustomerRentDetailsTM(dto.getId()
+                        , dto.getToDate().toString(),
+                        dto.getFromDate().toString(),
+                        dto.getRetunDate().toString(),
+                        dto.getCarId()));
+            }else {
+                obl.add(new CustomerRentDetailsTM(dto.getId()
+                        , dto.getToDate().toString(),
+                        dto.getFromDate().toString(),
+                        "Not Yet",
+                        dto.getCarId()));
+
+            }
+            tblCustomer.setItems(obl);
+        }
+    }
+
+    @FXML
+    void lblCustomerRentDetailsOnAction(MouseEvent event) {
+        anchorPaneSearch.setVisible(true);
+        txtCarId.setVisible(false);
+        lblSearchDetails.setVisible(false);
+        txtCustomerId.setVisible(true);
+        anchorPaneTbl.setVisible(false);
+
+    }
 
 
 }

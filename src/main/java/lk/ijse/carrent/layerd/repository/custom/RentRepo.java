@@ -21,4 +21,8 @@ public interface RentRepo extends CrudRepo<RentEntity,String> {
     Date custReturnDate(String id) throws Exception;
 
     List<RentEntity> carRentDetails(String id) throws Exception;
+
+    List<RentEntity> customerRentDetails(String id) throws Exception;
+
+
 }

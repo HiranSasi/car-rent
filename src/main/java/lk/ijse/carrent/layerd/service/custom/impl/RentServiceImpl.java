@@ -292,5 +292,34 @@ public class RentServiceImpl implements RentService {
 
     }
 
+    @Override
+    public List<RentDto> getCustomerRentDetailsList(String id) throws Exception {
+        List<RentEntity> rentEntities = rentRepo.customerRentDetails(id);
+        List<RentDto> rentDtos = new ArrayList<>();
+
+        for (RentEntity entity:rentEntities
+             ) {
+            if (entity.getRetunDate() != null) {
+                rentDtos.add(new RentDto(entity.getId(),
+                        entity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        entity.getRetunDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        entity.getCarEntity().getId(),
+                        entity.getCustomerEntity().getName(),
+                        entity.getCustomerEntity().getNic()));
+            }else {
+                rentDtos.add(new RentDto(entity.getId(),
+                        entity.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        entity.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                        null,
+                        entity.getCarEntity().getId(),
+                        entity.getCustomerEntity().getName(),
+                        entity.getCustomerEntity().getNic()));
+
+            }
+        }
+        return rentDtos;
+    }
+
 
 }

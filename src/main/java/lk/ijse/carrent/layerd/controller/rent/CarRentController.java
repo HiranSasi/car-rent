@@ -167,7 +167,7 @@ public class CarRentController {
 
             try {
                 String result = rentService.addRent(rentDto);
-                if (result.equals("Advance pay is Not Valid") || result.equals("Fail Added") || result.equals("This car is out ") || result.equals("Customer is not Available thi time period")) {
+                if (result.equals("Advance pay is Not Valid") || result.equals("Fail Added") || result.equals("This car is out ") || result.equals("Customer is not Available this time period")) {
                 } else {
                     totalAndBalance(datePickerFromDate.getValue(), datePickerToDate.getValue(), Double.parseDouble(txtPricePerDay.getText()), Double.parseDouble(txtAdvancedPay.getText()));
                     lblAdvance.setText("ADVANCE = RS. " + rentDto.getAdvancedPay() + "                                                    " + "DEPOSIT = RS. " + rentDto.getRefundableDeposit());

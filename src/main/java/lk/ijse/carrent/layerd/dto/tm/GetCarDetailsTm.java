@@ -12,6 +12,7 @@ public class GetCarDetailsTm {
     private String id;
 
     private Integer year;
+
     private String vehicleNumber;
 
     private Double pricePerDay;

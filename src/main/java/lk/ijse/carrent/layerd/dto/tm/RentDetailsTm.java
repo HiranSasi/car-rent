@@ -22,6 +22,10 @@ public class RentDetailsTm {
 
     private String custId;
 
+
+
+
+
     public RentDetailsTm(String id, String toDate, String fromDate, String returnDate, String custId) {
         this.id = id;
         this.toDate = toDate;
@@ -29,4 +33,7 @@ public class RentDetailsTm {
         this.returnDate = returnDate;
         this.custId = custId;
     }
+
+
+
 }
