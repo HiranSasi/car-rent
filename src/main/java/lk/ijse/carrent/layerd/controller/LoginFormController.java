@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -66,6 +63,12 @@ public class LoginFormController {
     @FXML
     private AnchorPane loginMainAnchorPane;
 
+    @FXML
+    private PasswordField pfPassword;
+
+    @FXML
+    private CheckBox checkBoxShowPasswrd;
+
 
 
 
@@ -83,6 +86,8 @@ public class LoginFormController {
         carAddController = new CarAddController();
         customerController = new CustomerController();
         carRentController = new CarRentController();
+        checkBoxShowPasswrd.setVisible(true);
+        checkBoxShowPasswrd.setSelected(false);
 
         lblCreateAcount.setVisible(false);
         txtEmail.setVisible(false);
@@ -90,6 +95,23 @@ public class LoginFormController {
         txtUSerId.setVisible(false);
         btnSignUp.setVisible(false);
         btnSignIns.setVisible(false);
+        txtPassword.setVisible(false);
+
+    }
+
+
+    @FXML
+    void cbShowPwOnAction(ActionEvent event) {
+        if (checkBoxShowPasswrd.isSelected()){
+            txtPassword.setVisible(true);
+            txtPassword.setEditable(false);
+            txtPassword.setText(pfPassword.getText());
+            pfPassword.setVisible(false);
+        }else {
+            txtPassword.setVisible(false);
+            pfPassword.setVisible(true);
+            txtPassword.setEditable(true);
+        }
 
     }
 
@@ -114,6 +136,10 @@ public class LoginFormController {
         btnSignUp.setVisible(true);
         btnSignUps.setVisible(false);
         btnSignIns.setVisible(true);
+        pfPassword.setVisible(false);
+        txtPassword.setVisible(true);
+        checkBoxShowPasswrd.setVisible(false);
+        txtPassword.setEditable(true);
 
 
     }
@@ -139,6 +165,10 @@ public class LoginFormController {
         btnSignUp.setVisible(false);
         btnSignUps.setVisible(true);
         btnSignIns.setVisible(false);
+        txtPassword.setVisible(false);
+        pfPassword.setVisible(true);
+        checkBoxShowPasswrd.setVisible(true);
+        checkBoxShowPasswrd.setSelected(false);
 
     }
 
@@ -179,7 +209,7 @@ public class LoginFormController {
 
         UserDto dto = new UserDto();
         dto.setUserName(txtUserName.getText());
-        dto.setPassword(txtPassword.getText());
+        dto.setPassword(pfPassword.getText());
 
         carCategoryController.runUserId(txtUserName.getText());
         carAddController.runUserId(txtUserName.getText());

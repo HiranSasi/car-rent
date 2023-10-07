@@ -23,7 +23,7 @@ public class CarCategoryServiceImpl implements CarCategoryService {
 
 
 
-
+        if (!carCategoryDto.getId().equals("") && !carCategoryDto.getName().equals("")){
 
        CarCategoryEntity carCategoryEntity = new CarCategoryEntity(carCategoryDto.getId(),carCategoryDto.getName(),carCategoryDto.getUserid());
         Integer id = carCategoryRepo.add(carCategoryEntity);
@@ -33,6 +33,9 @@ public class CarCategoryServiceImpl implements CarCategoryService {
             return "Successfully Added";
         } else {
             return "Fail Added";
+        }}else {
+
+            return "Id or Name wrong or Empty";
         }
 
 
@@ -57,7 +60,7 @@ public class CarCategoryServiceImpl implements CarCategoryService {
     @Override
     public String update(CarCategoryDto carCategoryDto) {
 
-
+        if (!carCategoryDto.getId().equals("") && !carCategoryDto.getName().equals("")){
         try {
 
             CarCategoryEntity carCategoryEntity = new CarCategoryEntity(carCategoryDto.getId(), carCategoryDto.getName(), carCategoryDto.getUserid()
@@ -75,6 +78,8 @@ public class CarCategoryServiceImpl implements CarCategoryService {
 
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             return "Fail";
+        }}else {
+            return "Id or Name wrong or Empty";
         }
 
 

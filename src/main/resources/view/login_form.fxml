@@ -2,7 +2,9 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -110,6 +112,8 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
+            <PasswordField fx:id="pfPassword" layoutX="74.0" layoutY="223.0" prefHeight="25.0" prefWidth="242.0" promptText="Password" />
+            <CheckBox fx:id="checkBoxShowPasswrd" layoutX="329.0" layoutY="227.0" mnemonicParsing="false" onAction="#cbShowPwOnAction" text="Show Password" />
          </children>
       </AnchorPane>
    </children>

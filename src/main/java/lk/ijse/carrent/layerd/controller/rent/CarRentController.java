@@ -193,7 +193,7 @@ public class CarRentController {
             public void updateItem(LocalDate date,boolean empty){
                 super.updateItem(date,empty);
                 LocalDate fromDateValue = datePickerFromDate.getValue();
-                LocalDate upDate = datePickerFromDate.getValue().plusDays(15);
+                LocalDate upDate = datePickerFromDate.getValue().plusDays(30);
                 if(date.isBefore(fromDateValue)|| date.isAfter(upDate)){
                     setDisable(true);
 
