@@ -81,11 +81,14 @@ public class LoginFormController {
     CarRentController carRentController;
 
     CustomerController customerController;
+
+    MainFormController mainFormController;
     public void initialize() {
         carCategoryController = new CarCategoryController();
         carAddController = new CarAddController();
         customerController = new CustomerController();
         carRentController = new CarRentController();
+        mainFormController = new MainFormController();
         checkBoxShowPasswrd.setVisible(true);
         checkBoxShowPasswrd.setSelected(false);
 
@@ -215,6 +218,7 @@ public class LoginFormController {
         carAddController.runUserId(txtUserName.getText());
         customerController.runUserId(txtUserName.getText());
         carRentController.runUserId(txtUserName.getText());
+        mainFormController.runUserId(txtUserName.getText());
 
 
         try {

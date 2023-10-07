@@ -17,6 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String addCustomer(CustomerDto customerDto) throws Exception {
 
+        if (!customerDto.getId().equals("") && !customerDto.getNic().equals("")){
         CustomerEntity customerEntity = new CustomerEntity(customerDto.getId(),customerDto.getNic(),customerDto.getName(),customerDto.getAddress(),customerDto.getDob(),customerDto.getUserName(),customerDto.getMobil());
 
         Integer id = customerRepo.add(customerEntity);
@@ -27,6 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
             return "Successfully Added";
         } else {
             return "Fail Added";
+        }}
+        else {
+            return "Wrong values";
         }
     }
 
@@ -52,21 +56,25 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String updateCustomer(CustomerDto customerDto) throws Exception {
-       CustomerEntity customerEntity = new CustomerEntity(customerDto.getId(),
-               customerDto.getNic(),
-               customerDto.getName(),
-               customerDto.getAddress(),
-               customerDto.getDob(),
-               customerDto.getUserName(),
-               customerDto.getMobil());
+        if (!customerDto.getId().equals("") && !customerDto.getNic().equals("")) {
+            CustomerEntity customerEntity = new CustomerEntity(customerDto.getId(),
+                    customerDto.getNic(),
+                    customerDto.getName(),
+                    customerDto.getAddress(),
+                    customerDto.getDob(),
+                    customerDto.getUserName(),
+                    customerDto.getMobil());
 
-       Integer id = customerRepo.update(customerEntity);
+            Integer id = customerRepo.update(customerEntity);
 
 
-        if(id != -1){
-            return " Update Success";
+            if (id != -1) {
+                return " Update Success";
+            } else {
+                return "Fail Update";
+            }
         }else {
-            return "Fail Update";
+            return "Wrong values";
         }
     }
 

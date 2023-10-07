@@ -41,6 +41,7 @@ public class CarCategoryController {
 
     public void initialize() {
 
+        txtId.setText("CC0");
 
         setValueFactory();
         try {

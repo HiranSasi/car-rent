@@ -97,6 +97,8 @@ public class CarRentController {
             }
         });
 
+        txtRentId.setText("RI0");
+
         lblDetailsCust.setVisible(false);
         lblDetailsCar.setVisible(false);
         anchorPaneTotal.setVisible(false);

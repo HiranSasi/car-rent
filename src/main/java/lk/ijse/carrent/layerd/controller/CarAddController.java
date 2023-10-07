@@ -70,6 +70,7 @@ public class CarAddController {
     public void initialize() {
 
         setValueFactory();
+        txtCarId.setText("CI0");
         getCmb();
         getAllTbl();
         lblBack.setVisible(false);
@@ -150,26 +151,31 @@ public class CarAddController {
     void btnAddOnAction(ActionEvent event) {
 
         String carCategoryName = cmbCarCategory.getValue();
-
-        CarDetailsDto carDetailsDto = new CarDetailsDto(txtCarId.getText()
-                , txtCarCategoryId.getText()
-                , userName,
-                txtBrand.getText(),
-                txtModel.getText(),
-                Integer.parseInt(txtYer.getText()),
-                txtNumber.getText(),
-                Double.parseDouble(txtPricePerDay.getText()),
-                carCategoryName);
-
         try {
-            String result = carDetailsSrevice.addCar(carDetailsDto);
-           getAllTbl();
-            clear();
 
-            new Alert(Alert.AlertType.INFORMATION, result).show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            throw new RuntimeException(e);
+
+            CarDetailsDto carDetailsDto = new CarDetailsDto(txtCarId.getText()
+                    , txtCarCategoryId.getText()
+                    , userName,
+                    txtBrand.getText(),
+                    txtModel.getText(),
+                    Integer.parseInt(txtYer.getText()),
+                    txtNumber.getText(),
+                    Double.parseDouble(txtPricePerDay.getText()),
+                    carCategoryName);
+
+            try {
+                String result = carDetailsSrevice.addCar(carDetailsDto);
+                getAllTbl();
+                clear();
+
+                new Alert(Alert.AlertType.INFORMATION, result).show();
+            } catch (Exception e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                throw new RuntimeException(e);
+            }
+        }catch (Exception ex){
+            new Alert(Alert.AlertType.ERROR,"Wrong values").show();
         }
 
     }
@@ -179,26 +185,31 @@ public class CarAddController {
 
 
         String carCategoryName = cmbCarCategory.getValue();
-
-        CarDetailsDto carDetailsDto = new CarDetailsDto(txtCarId.getText()
-                , txtCarCategoryId.getText()
-                , userName,
-                txtBrand.getText(),
-                txtModel.getText(),
-                Integer.parseInt(txtYer.getText()),
-                txtNumber.getText(),
-                Double.parseDouble(txtPricePerDay.getText()),
-                carCategoryName);
-
         try {
-            String result = carDetailsSrevice.update(carDetailsDto);
-            getAllTbl();
-            clear();
 
-            new Alert(Alert.AlertType.INFORMATION, result).show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            throw new RuntimeException(e);
+
+            CarDetailsDto carDetailsDto = new CarDetailsDto(txtCarId.getText()
+                    , txtCarCategoryId.getText()
+                    , userName,
+                    txtBrand.getText(),
+                    txtModel.getText(),
+                    Integer.parseInt(txtYer.getText()),
+                    txtNumber.getText(),
+                    Double.parseDouble(txtPricePerDay.getText()),
+                    carCategoryName);
+
+            try {
+                String result = carDetailsSrevice.update(carDetailsDto);
+                getAllTbl();
+                clear();
+
+                new Alert(Alert.AlertType.INFORMATION, result).show();
+            } catch (Exception e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                throw new RuntimeException(e);
+            }
+        }catch (Exception ex){
+            new Alert(Alert.AlertType.ERROR,"Wrong values").show();
         }
 
     }

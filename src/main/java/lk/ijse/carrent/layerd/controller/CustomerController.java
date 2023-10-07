@@ -95,6 +95,7 @@ public class CustomerController {
         backTbl();
         lblUpdateBack.setVisible(false);
         anchorPaneUpdateNumber.setVisible(false);
+        txtId.setText("CUI0");
 
     }
 

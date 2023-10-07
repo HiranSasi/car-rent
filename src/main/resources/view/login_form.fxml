@@ -79,8 +79,8 @@
                   <Image url="@../image/icons8-login-64.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtUserName" layoutX="76.0" layoutY="188.0" prefHeight="7.0" prefWidth="242.0" promptText="Username" text="Hiran@123" AnchorPane.bottomAnchor="187.0" AnchorPane.topAnchor="188.0" />
-            <TextField fx:id="txtPassword" layoutX="76.0" layoutY="223.0" prefHeight="7.0" prefWidth="242.0" promptText="password" text="Hiran123" />
+            <TextField fx:id="txtUserName" layoutX="76.0" layoutY="188.0" prefHeight="7.0" prefWidth="242.0" promptText="Username" AnchorPane.bottomAnchor="187.0" AnchorPane.topAnchor="188.0" />
+            <TextField fx:id="txtPassword" layoutX="76.0" layoutY="223.0" prefHeight="7.0" prefWidth="242.0" promptText="password" />
             <TextField fx:id="txtName" layoutX="76.0" layoutY="117.0" prefHeight="7.0" prefWidth="242.0" promptText="name" />
             <TextField fx:id="txtEmail" layoutX="76.0" layoutY="151.0" prefHeight="7.0" prefWidth="242.0" promptText="email" />
             <TextField fx:id="txtUSerId" layoutX="76.0" layoutY="84.0" prefHeight="7.0" prefWidth="242.0" promptText="userId" />
